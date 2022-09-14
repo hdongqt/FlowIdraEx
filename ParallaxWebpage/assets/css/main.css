@@ -1,0 +1,77 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+  font-family: 'Roboto', sans-serif;
+  font-family: Poppins, sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+    'Open Sans', 'Helvetica Neue', sans-serif;
+}
+.web {
+  width: 100%;
+  overflow: hidden;
+}
+.parallax {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 130vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  transition: 1.2s ease-in-out;
+}
+
+.content {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  color: #fff;
+  text-transform: uppercase;
+  transition: 1.2s ease-in-out;
+}
+.parallax h2 {
+  text-transform: uppercase;
+  font-size: 12rem;
+  font-weight: 500;
+}
+.parallax p {
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+.parallax:nth-child(1) {
+  background-image: url(../images/bg-1.jpg);
+  z-index: 3;
+}
+.parallax:nth-child(2) {
+  background-image: url(../images/bg-2.jpg);
+  z-index: 2;
+}
+.parallax:nth-child(3) {
+  background-image: url(../images/bg-3.jpg);
+  z-index: 1;
+}
+.parallax.scroll-up {
+  transform: translateY(calc(-30vh / 2));
+}
+.parallax.scroll-up .content {
+  transform: translateY(calc(30vh / 2));
+}
+.parallax.scroll-up + .parallax {
+  transform: translateY(30vh);
+}
+.parallax.scroll-up + .parallax .content {
+  transform: translateY(30vh);
+}
+.parallax.scroll-down {
+  transform: translateY(calc(-100vh - 30vh));
+}

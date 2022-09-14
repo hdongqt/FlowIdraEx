@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./assets/css/main.css" />
+  </head>
+  <body>
+    <div class="web">
+      <div class="content">
+        <h2 class="content-title">Good Vibes Form</h2>
+        <form action="#" class="form">
+          <span class="form-desc">Tell us something positive that happened to you today.</span>
+          <div class="form-group">
+            <label class="form-label">Name:</label>
+            <div class="form-input">
+              <input type="text" name="name" placeholder="Enter your name" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email:</label>
+            <div class="form-input">
+              <input type="text" name="email" class="form-input" placeholder="Enter your email address" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">On a scale of 1-10, how good was it?</label>
+            <div class="form-input">
+              <input type="text" name="scale" class="form-input" placeholder="Enter a number between 1 and 10" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Where did it happen?</label>
+            <div class="form-input">
+              <select name="happen">
+                <option value="volvo">At Home</option>
+                <option value="saab">Saab</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group form-group--top">
+            <label class="form-label">At what time of day it happen?</label>
+            <div class="form-input">
+              <div class="form-input__mulitple">
+                <input type="radio" name="time-happen" value="morning" id="time-morning" checked />
+                <label for="time-morning">Morning</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="radio" name="time-happen" id="time-afternoon" value="afternoon" />
+                <label for="time-afternoon">Afternoon</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="radio" name="time-happen" id="time-evening" value="evening" />
+                <label for="time-evening">Evening</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-group--top">
+            <label class="form-label"
+              >What emotions did you experience? <span class="form-label__sub">(Select all that apply)</span>
+            </label>
+            <div class="form-input">
+              <div class="form-input__mulitple">
+                <input type="checkbox" name="emotion" value="morning" id="emotion-excited" checked />
+                <label for="emotion-excited">Morning</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="checkbox" name="emotion" id="emotion-humbled" value="afternoon" />
+                <label for="emotion-humbled">Humbled</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="checkbox" name="emotion" id="emotion-elated" value="evening" />
+                <label for="emotion-elated">Elated</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="checkbox" name="emotion" id="emotion-loved" value="evening" />
+                <label for="emotion-loved">Loved</label>
+              </div>
+              <div class="form-input__mulitple">
+                <input type="checkbox" name="emotion" id="emotion-ethusiastic" value="evening" />
+                <label for="emotion-ethusiastic">Ethusiastic</label>
+              </div>
+            </div>
+          </div>
+          <div class="form-group form-group--top">
+            <label class="form-label">Please describe your positive experience.</label>
+            <div class="form-input">
+              <textarea placeholder="Enter your experience here..." cols="38" rows="4"></textarea>
+            </div>
+          </div>
+          <button class="form-submit__btn">Submit</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
