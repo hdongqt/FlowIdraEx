@@ -355,3 +355,531 @@ a {
 .banner__content-about__social a {
   font-size: 2.2rem;
 }
+.theme {
+  width: 100%;
+  padding: 40px 40px 90px 40px;
+  background-color: #efefef;
+}
+.theme-title,
+.latest-music-title {
+  font-size: 3.2rem;
+  line-height: 3.2rem;
+  font-weight: 400;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.theme-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 40px;
+  padding: 0px 120px;
+}
+.theme-item {
+}
+.theme-item__name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.theme-item__name-icon i {
+  font-size: 6rem;
+  color: #ff5500;
+}
+.theme-item__name-text {
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+.theme-item__info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.theme-item__info-desc {
+  padding: 4px 16px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  margin-bottom: 18px;
+}
+.theme-item__info-btn {
+  color: rgba(0, 0, 0, 0.8);
+  padding: 6px 10px;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+  border: 1px solid rgba(0, 0, 0, 0.55);
+  border-radius: 3px;
+  transition: 0.2s linear;
+}
+.theme-item__info-btn:hover {
+  color: #fff;
+  background-color: #ff5500;
+}
+.latest-music {
+  padding: 40px 150px 50px 150px;
+}
+.latest-music-desc {
+  padding: 4px 16px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  margin-bottom: 68px;
+}
+.latest-music__type {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-column-gap: 8px;
+}
+.latest-music__type-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  color: rgba(0, 0, 0, 0.8);
+}
+.latest-music__type-icon {
+  font-size: 4rem;
+}
+.latest-music__type-name {
+  font-size: 1.2rem;
+  line-height: 1.2rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.8);
+  margin-top: 10px;
+}
+.latest-music__type-item.latest-music__type--active {
+  opacity: 1;
+}
+.latest-music__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-gap: 32px 24px;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding: 0px 70px;
+}
+.latest-music__list-item {
+  position: relative;
+}
+.latest-music__list-item img {
+  display: block;
+  width: 100%;
+  z-index: 1;
+}
+.latest-music__list-item__detail {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transition: 0.2s linear;
+}
+.latest-music__list-item__detail-link {
+  position: absolute;
+  bottom: 34px;
+  left: -100px;
+  font-size: 2.4rem;
+  transition: 0.3s linear;
+  display: block;
+  max-width: 200px;
+  visibility: hidden;
+}
+.latest-music__list-item:hover .latest-music__list-item__detail {
+  opacity: 1;
+}
+.latest-music__list-item:hover .latest-music__list-item__detail-link {
+  left: 22px;
+  visibility: visible;
+}
+.latest-music__more {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.latest-music__more-btn {
+  border: 1px solid #333;
+  padding: 18px 8px;
+  min-width: 150px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: #ffffff;
+  color: #000;
+  text-align: center;
+  transition: 0.2s linear;
+}
+.latest-music__more-btn:hover {
+  background-color: #ff5500;
+  color: #fff;
+}
+
+.play {
+  background-color: #efefef;
+  padding: 34px 40px 160px 40px;
+  position: relative;
+  z-index: 1;
+}
+.play::before {
+  content: '';
+  width: 38%;
+  height: 600px;
+  background: url(../images/homepage01-bg-3-headphone.png);
+  position: absolute;
+  left: 20px;
+  bottom: 0;
+  z-index: 6;
+  background-size: cover;
+  background-position: center;
+}
+.play__content {
+  width: 58%;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.play__content-title {
+  font-size: 3rem;
+  font-weight: 400;
+  padding: 38px 0px;
+}
+.play__content-title span {
+  color: #ff5500;
+}
+.play__content-description {
+  color: rgba(0, 0, 0, 0.8);
+  font-size: 1.4rem;
+  padding: 0px 80px;
+}
+.play__content-button {
+  margin-top: 28px;
+}
+.play__content-button i {
+  color: #ff5500;
+  font-size: 6rem;
+}
+.our__band {
+  padding: 80px;
+}
+.our__band-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.our__band-header__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.our__band-header__content__title {
+  font-size: 3rem;
+  margin: 28px 0;
+  font-weight: 400;
+}
+.our__band-header__content__desc {
+  font-size: 1.4rem;
+}
+.our__band-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: 0 140px;
+  margin-top: 60px;
+}
+.our__band-item {
+}
+.our__band-item__image img {
+  width: 100%;
+  display: block;
+}
+.our__band-item__info {
+  margin-top: 4px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.our__band-item__info-name {
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+  color: #ff5500;
+}
+.our__band-item__info-type {
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.5);
+}
+.our__band-item__social {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 22px;
+}
+.our__band-item__social-link {
+  color: #000;
+  font-size: 2.6rem;
+  transition: 0.2s linear;
+}
+.our__band-item__social-link:hover {
+  opacity: 0.6;
+}
+.listen-song {
+  background: url(../images/Music-WordPress-Theme-artis-man-music.jpg);
+}
+.listen-song__content {
+  width: 50%;
+  margin-left: auto;
+  text-align: center;
+  padding: 90px 0;
+}
+.listen-song__content__title {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #fff;
+}
+.listen-song__content__title span {
+  color: #ff5500;
+}
+.listen-song__content__desc {
+  color: #fff;
+  margin: 28px 0px;
+  font-size: 1.4rem;
+  padding: 0 100px;
+}
+.listen-song__content__app {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding-bottom: 30px;
+}
+.our-news {
+  padding: 80px 210px;
+}
+.our-news-top {
+  display: flex;
+}
+.our-news__intro {
+  width: 25%;
+  padding-right: 14px;
+}
+.our-news__intro__desc {
+}
+.our-news__intro-title {
+  font-size: 3rem;
+  margin-bottom: 24px;
+  font-weight: 400;
+}
+.our-news__intro-text {
+  font-size: 1.4rem;
+  padding-right: 8px;
+}
+.our-news__list-post__desc-btn {
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  text-transform: uppercase;
+  font-size: 1.4rem;
+  min-width: 140px;
+  padding: 18px 8px;
+  color: #000;
+  display: inline-block;
+  text-align: center;
+  margin-top: 32px;
+  border-radius: 3px;
+}
+.our-news__outstand {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-column-gap: 28px;
+  padding: 0px 8px;
+}
+.our-news__outstand-item {
+}
+.our-news__outstand-img {
+  display: block;
+  width: 100%;
+}
+.our-news__outstand__content {
+  padding: 6px 6px;
+  border: 1px solid #efefef;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.06);
+}
+.our-news__outstand__content-name {
+  font-size: 1.8rem;
+  color: #ff5500;
+  font-weight: 500;
+}
+.our-news__outstand-text {
+  font-size: 1.4rem;
+  color: rgba(0, 0, 0, 0.6);
+  line-height: 2.4rem;
+}
+.our-news__outstand__info {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 4px;
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.our-news__outstand__info-date {
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+}
+.our-news__outstand__info-date i {
+  line-height: 1.8rem;
+  font-size: 1.8rem;
+}
+.our-news__outstand__info-cmt {
+  font-size: 1.6rem;
+}
+.our-news-countdown {
+  padding: 40px 60px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 8px;
+}
+.our-news-countdown-item {
+  text-align: center;
+}
+.our-news-countdown-icon {
+  text-align: center;
+}
+.our-news-countdown-icon i {
+  font-size: 6rem;
+  color: #ff5500;
+}
+.our-news-countdown-number {
+  font-size: 6rem;
+  font-weight: 600;
+  color: #818b92;
+}
+.our-news-countdown-name {
+  color: #ff5500;
+  font-size: 1.8rem;
+  line-height: 1.8rem;
+}
+.footer {
+  background-color: #000;
+}
+.footer__container {
+  padding: 0px 210px;
+}
+.footer__top {
+  display: flex;
+  justify-content: center;
+  padding: 22px 0px;
+}
+#btn-to-top {
+  padding: 8px;
+  font-size: 1.8rem;
+  cursor: pointer;
+  opacity: 0.8;
+  color: #fff;
+  transition: 0.2s linear;
+}
+#btn-to-top:hover {
+  opacity: 1;
+}
+.footer__main {
+  border-bottom: 1px solid rgb(51 51 51);
+  border-top: 1px solid rgb(51 51 51);
+}
+.footer__main-logo {
+  display: flex;
+  justify-content: center;
+  margin-top: 29px;
+}
+.footer__main-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-column-gap: 12px;
+  padding: 61px 0px;
+}
+.footer__main-item {
+}
+.footer__main-item__name {
+  color: rgb(177, 173, 173);
+  font-size: 1.6rem;
+  margin-bottom: 26px;
+}
+.footer__main-item-content {
+  color: #fff;
+  font-size: 1.4rem;
+  padding-right: 8px;
+}
+.footer__main__contact {
+}
+.footer__main__contact-phone {
+  font-size: 1.6rem;
+  display: flex;
+  gap: 10px;
+}
+.footer__main__contact-phone i {
+  font-size: 2.4rem;
+}
+.footer__main__contact-mail {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+.footer__main__contact-mail i {
+  font-size: 1.6rem;
+}
+.footer__main__contact-mail i {
+  font-size: 2.4rem;
+  line-height: 2.4rem;
+  padding-right: 4px;
+}
+.footer__main__contact-social {
+  display: flex;
+  justify-content: space-between;
+  padding-left: 4px;
+  gap: 4px;
+  padding-right: 26px;
+  margin-top: 20px;
+}
+.footer__main__contact-social a {
+  font-size: 2.6rem;
+}
+.footer__main-item-content__lastnew {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.footer__main-item-content__lastnew-link {
+  font-size: 1.4rem;
+  transition: 0.2s linear;
+}
+.footer__main-item-content__lastnew-link:hover {
+  color: #ff5500;
+}
+.footer__main-item-content__app img {
+  margin-bottom: 6px;
+}
+.footer__down {
+  display: flex;
+  justify-content: space-between;
+  padding: 46px 20px;
+}
+.footer__down__powered {
+  color: rgb(177, 173, 173);
+  font-size: 1.4rem;
+}
+.footer__down__nav {
+  display: flex;
+  gap: 12px;
+}
+.footer__down__nav-item {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+.footer__down__nav-link {
+  color: rgb(177, 173, 173);
+}
