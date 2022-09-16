@@ -1,0 +1,126 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,300italic,regular,italic,700,700italic);
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 62.5%;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+.web {
+  width: 100%;
+  background-color: #eeeeee;
+}
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: 0px 0px 30px 0px rgb(145 144 144 / 75%);
+}
+.our-work {
+}
+.our-work__main {
+  display: flex;
+}
+.our-work__content {
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.our-work__content-title {
+  font-size: 3.8rem;
+  font-weight: 400;
+  padding: 0 60px;
+}
+.our-work__content-desc {
+  font-size: 1.9rem;
+  color: #787777;
+}
+.our-work__content-view {
+  margin-top: 50px;
+}
+.our-work__content-view__button {
+  border: 2px solid #000;
+  color: #000;
+  font-size: 1.6rem;
+  border-radius: 51px;
+  padding: 16px 44px;
+  transition: 0.2s linear;
+}
+.our-work__content-view__button:hover {
+  background-color: #f4f4f4;
+}
+.our-work__image {
+  width: 60%;
+  padding-left: 20px;
+}
+.our-work__image img {
+  display: block;
+  width: 100%;
+  object-fit: cover;
+  height: 100vh;
+}
+.our-work__footer {
+  background-color: #333333;
+  text-align: center;
+  padding: 22px 0px;
+}
+.our-work__footer-text {
+  color: #fff;
+  font-weight: 300;
+  font-size: 2rem;
+  border-left: 1px dotted #fff;
+  border-right: 1px dotted #fff;
+  padding: 0 8px;
+}
+.photo-list {
+  width: 100%;
+}
+.photo-item {
+}
+.photo-item__img {
+  display: block;
+  width: 100%;
+}
+.photo-item__content {
+  text-align: center;
+  background-color: #eeeeee;
+  padding: 24px 0px;
+}
+.photo-item__content-name {
+  font-size: 2rem;
+}
+.photo-item__content-desc {
+  font-size: 1.6rem;
+  margin-top: 20px;
+}
+.footer {
+  display: flex;
+  justify-content: center;
+  padding: 40px 40px;
+}
+.footer-info {
+  text-align: center;
+}
+.footer-info__get {
+  font-size: 4.9rem;
+  font-weight: 700;
+  color: #333;
+  padding-bottom: 4px;
+}
+.footer-info__text {
+  color: #333;
+  font-size: 1.6rem;
+  padding: 6px 0px;
+}
