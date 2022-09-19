@@ -295,6 +295,12 @@ a {
   right: 0;
   display: flex;
   justify-content: center;
+  transition: 1.5s cubic-bezier(0.22, 0.44, 0, 1);
+  transform: translateY(100%);
+  transition-delay: 1s;
+}
+.banner__content__background-toogle {
+  transform: translateY(0);
 }
 .banner__content-info {
   color: #fff;
@@ -308,6 +314,20 @@ a {
   width: 33.33333%;
   padding: 0 30px;
   border-right: 2px solid rgb(173 173 173 / 71%);
+  transform: translateY(60%);
+  transition: 1.5s cubic-bezier(0.22, 0.44, 0, 1);
+}
+.banner__content__background-toogle .banner__content-info-column {
+  transform: translateY(0);
+}
+.banner__content-info-column:nth-child(1) {
+  transition-delay: 1s;
+}
+.banner__content-info-column:nth-child(2) {
+  transition-delay: 1.2s;
+}
+.banner__content-info-column:nth-child(3) {
+  transition-delay: 1.4s;
 }
 .banner__content-info-column:last-child {
   border-right: none;
@@ -359,6 +379,8 @@ a {
   width: 100%;
   padding: 40px 40px 90px 40px;
   background-color: #efefef;
+  position: relative;
+  z-index: 7;
 }
 .theme-title,
 .latest-music-title {
@@ -479,6 +501,7 @@ a {
   right: 0;
   bottom: 0;
   transition: 0.2s linear;
+  overflow: hidden;
 }
 .latest-music__list-item__detail-link {
   position: absolute;
@@ -488,6 +511,7 @@ a {
   transition: 0.3s linear;
   display: block;
   max-width: 200px;
+  transition-delay: 0.2s;
   visibility: hidden;
 }
 .latest-music__list-item:hover .latest-music__list-item__detail {
@@ -690,6 +714,11 @@ a {
   text-align: center;
   margin-top: 32px;
   border-radius: 3px;
+  transition: 0.2s linear;
+}
+.our-news__list-post__desc-btn:hover {
+  background-color: #ff5500;
+  color: #fff;
 }
 .our-news__outstand {
   flex: 1;
