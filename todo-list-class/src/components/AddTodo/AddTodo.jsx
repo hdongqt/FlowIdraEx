@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Swal from 'sweetalert2';
 import * as ADD from './AddTodo.style';
 
 export default class AddTodo extends PureComponent {
@@ -28,7 +29,11 @@ export default class AddTodo extends PureComponent {
         });
       }
     } else {
-      alert('Please enter a title for the task');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter a title for the task !',
+      });
     }
   };
 
@@ -40,11 +45,10 @@ export default class AddTodo extends PureComponent {
     });
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.state.todoEdit !== this.props.todoEdit) {
-      console.log('changed props todoEdit');
-      this.setState({ title: this.props.todoEdit.title, todoEdit: this.props.todoEdit });
-    }
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.todoEdit !== prevState.todoEdit) {
+      return { todoEdit: nextProps.todoEdit, title: nextProps.todoEdit.title };
+    } else return null;
   }
 
   render() {

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 import * as ADD from './AddTodo.style';
 
 const AddTodo = ({ handelEditTodo, addTodo, clearEditTodo, todoEdit }) => {
@@ -28,7 +29,11 @@ const AddTodo = ({ handelEditTodo, addTodo, clearEditTodo, todoEdit }) => {
         setTitle('');
       }
     } else {
-      alert('Please enter a title for the task');
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Please enter a title for the task !',
+      });
     }
   };
 
