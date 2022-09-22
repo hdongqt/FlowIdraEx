@@ -1,4 +1,5 @@
 import React, { PureComponent } from 'react';
+import Swal from 'sweetalert2';
 import styled from 'styled-components';
 import StepFirst from '../StepForm/StepFirst';
 import StepTwo from '../StepForm/StepTwo';
@@ -17,15 +18,29 @@ export default class Form extends PureComponent {
     form: {
       firstname: '',
       lastname: '',
+      age: 0,
       address: '',
       gender: '',
     },
   };
 
   onClickNext = () => {
-    this.setState({
-      step: this.state.step + 1,
-    });
+    if (this.state.step < 2) {
+      this.setState({
+        step: this.state.step + 1,
+      });
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: `
+              fullname: ${this.state.form.firstname} ${this.state.form.lastname},
+              age: ${this.state.form.age},
+              lastname: ${this.state.form.address},
+              gender: ${this.state.form.gender}
+              `,
+      });
+    }
   };
 
   onClickBack = () => {

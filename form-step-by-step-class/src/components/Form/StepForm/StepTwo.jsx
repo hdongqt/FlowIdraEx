@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-import Swal from 'sweetalert2';
 import { FormGroup, FormLabel, FormStyle, TextInput, FormSelect, FormMessageError } from './Form.style';
 import { ButtonGroupStep, FormButton } from '../StepForm/Form.style';
 
@@ -29,14 +28,7 @@ export default class StepTwo extends PureComponent {
     if (Object.values(error).some((mess) => mess.length > 0)) {
       this.setState({ errorMessage: error });
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: `fullname: ${this.props.formData.firstname} ${this.props.formData.lastname},
-              lastname: ${this.props.formData.address},
-              gender: ${this.props.formData.gender}
-              `,
-      });
+      this.props.onClickNext();
     }
   };
   render() {

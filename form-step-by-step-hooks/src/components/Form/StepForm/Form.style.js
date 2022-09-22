@@ -27,6 +27,15 @@ const TextInput = styled.input.attrs({
   padding: 8px 8px;
 `;
 
+const NumberInput = styled.input.attrs({
+  type: 'number',
+})`
+  outline: none;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding: 8px 8px;
+`;
+
 const FormMessageError = styled.span`
   font-size: 14px;
   color: #c32b30;
@@ -63,4 +72,14 @@ const ButtonGroupStep = styled.div`
   padding: 4px 20px;
 `;
 
-export { TextInput, FormGroup, FormStyle, FormLabel, FormButton, ButtonGroupStep, FormSelect, FormMessageError };
+export {
+  TextInput,
+  FormGroup,
+  FormStyle,
+  FormLabel,
+  FormButton,
+  ButtonGroupStep,
+  FormSelect,
+  FormMessageError,
+  NumberInput,
+};

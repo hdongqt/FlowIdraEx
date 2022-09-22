@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { FormGroup, FormLabel, FormStyle, TextInput, FormSelect, FormMessageError } from './Form.style';
 import { ButtonGroupStep, FormButton } from '../StepForm/Form.style';
-import Swal from 'sweetalert2';
 
 const StepTwo = ({ onChangeValueInput, onClickBack, formData, onClickNext }) => {
   const [errorMessage, setErrorMessage] = useState({
@@ -29,14 +28,7 @@ const StepTwo = ({ onChangeValueInput, onClickBack, formData, onClickNext }) => 
     if (Object.values(error).some((mess) => mess.length > 0)) {
       setErrorMessage(error);
     } else {
-      Swal.fire({
-        icon: 'success',
-        title: 'Success',
-        text: `fullname: ${formData.firstname} ${formData.lastname},
-              lastname: ${formData.address},
-              gender: ${formData.gender}
-              `,
-      });
+      onClickNext();
     }
   };
 

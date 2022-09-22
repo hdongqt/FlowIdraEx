@@ -1,11 +1,20 @@
 import React, { PureComponent } from 'react';
-import { FormGroup, FormLabel, FormStyle, TextInput } from './Form.style';
-import { ButtonGroupStep, FormButton, FormMessageError } from '../StepForm/Form.style';
+import {
+  FormGroup,
+  FormLabel,
+  FormStyle,
+  TextInput,
+  ButtonGroupStep,
+  FormButton,
+  FormMessageError,
+  NumberInput,
+} from './Form.style';
 
 export default class StepFirst extends PureComponent {
   state = {
     errorMessage: {
       firstname: '',
+      age: '',
       lastname: '',
     },
   };
@@ -24,6 +33,10 @@ export default class StepFirst extends PureComponent {
     if (!this.props.formData.lastname) {
       error = { ...error, lastname: 'Last name is required !' };
     }
+    if (!this.props.formData.age || this.props.formData.age < 0 || this.props.formData.age > 180) {
+      error = { ...error, age: 'Please enter valid age !' };
+    }
+
     //action
     if (Object.values(error).some((mess) => mess.length > 0)) {
       this.setState({ errorMessage: error });
@@ -46,6 +59,11 @@ export default class StepFirst extends PureComponent {
             <FormLabel>Last name:</FormLabel>
             <TextInput type="text" name="lastname" onChange={(e) => this.onChange(e)} value={formData.lastname} />
             {errorMessage.lastname && <FormMessageError>{errorMessage.lastname}</FormMessageError>}
+          </FormGroup>
+          <FormGroup className="form-group">
+            <FormLabel>Age:</FormLabel>
+            <NumberInput type="number" name="age" onChange={(e) => this.onChange(e)} value={formData.age} />
+            {errorMessage.age && <FormMessageError>{errorMessage.age}</FormMessageError>}
           </FormGroup>
         </FormStyle>
         <ButtonGroupStep>

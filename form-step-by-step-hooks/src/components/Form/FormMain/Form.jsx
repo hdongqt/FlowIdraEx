@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import StepFirst from '../StepForm/StepFirst';
 import StepTwo from '../StepForm/StepTwo';
+import Swal from 'sweetalert2';
 
 const FormContainer = styled.div`
   display: flex;
@@ -16,12 +17,26 @@ const Form = () => {
   const [form, setForm] = useState({
     firstname: '',
     lastname: '',
+    age: 0,
     address: '',
     gender: '',
   });
 
   const onClickNext = () => {
-    setStep((prev) => prev + 1);
+    if (step < 2) {
+      setStep((prev) => prev + 1);
+    } else {
+      Swal.fire({
+        icon: 'success',
+        title: 'Success',
+        text: `
+              fullname: ${form.firstname} ${form.lastname},
+              age: ${form.age},
+              lastname: ${form.address},
+              gender: ${form.gender}
+              `,
+      });
+    }
   };
 
   const onClickBack = () => {
