@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import BoardFrom from '../BoardCreate/BoardFrom';
+import BoardForm from '../BoardCreate/BoardForm';
 import {
   BoardContainer,
   BoardMain,
@@ -177,7 +177,7 @@ const Board = () => {
           </BoardGroup>
         </BoardMain>
       </BoardContainer>
-      <BoardFrom
+      <BoardForm
         isOpenForm={isOpenForm}
         handelCloseForm={handelCloseForm}
         handelCreateTask={handelCreateTask}
