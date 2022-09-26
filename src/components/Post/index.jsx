@@ -10,7 +10,7 @@ import axios from "axios";
 import ListPost from "./ListPost";
 import ListFilter from "./ListFilter";
 const Post = () => {
-  const [state, dispatch] = useContext(AppContext);
+  const [, dispatch] = useContext(AppContext);
   const [title, setTitle] = useState("");
   const [statusAdd, setStatusAdd] = useState(true);
 

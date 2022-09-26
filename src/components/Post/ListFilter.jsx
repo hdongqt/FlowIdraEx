@@ -3,7 +3,7 @@ import { filterSearchActionCreator } from "../../context/action";
 import { AppContext } from "./../../context/AppProvider";
 
 const ListFilter = () => {
-  const [state, dispatch] = useContext(AppContext);
+  const [, dispatch] = useContext(AppContext);
 
   const handelOnchangSearch = (value) => {
     dispatch(filterSearchActionCreator(value));
