@@ -62,6 +62,7 @@ const Board = () => {
   const handleCloseForm = () => {
     setIsOpenForm(false);
     setIsLoadingForm(false);
+    if (taskEdit) setTaskEdit(null);
   };
 
   const handleRandomId = () => {
@@ -75,25 +76,31 @@ const Board = () => {
 
   const handleCreateOrEditTask = (task) => {
     setIsLoadingForm(true);
+    //edit
     if (task.id) {
-      setTimeout(() => {
-        setListTask(
-          map(listTask, (item) => {
-            if (item.id === task.id) return task;
-            return item;
-          })
-        );
-        setTaskEdit(null);
-        handleCloseForm();
-      }, 1000);
+      return new Promise((resolve) =>
+        setTimeout(() => {
+          setListTask(
+            map(listTask, (item) => {
+              if (item.id === task.id) return task;
+              return item;
+            })
+          );
+          resolve();
+          setTaskEdit(null);
+        }, 1000)
+      );
+      //create
     } else {
-      setTimeout(() => {
-        setListTask([
-          ...listTask,
-          { ...task, id: handleRandomId(), status: TYPE_STATUS.TODO },
-        ]);
-        handleCloseForm();
-      }, 1000);
+      return new Promise(function (resolve) {
+        setTimeout(() => {
+          setListTask([
+            ...listTask,
+            { ...task, id: handleRandomId(), status: TYPE_STATUS.TODO },
+          ]);
+          resolve();
+        }, 1000);
+      });
     }
   };
 

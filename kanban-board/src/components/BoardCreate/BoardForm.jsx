@@ -68,15 +68,22 @@ const BoardFrom = ({
   };
 
   const handleOnSubmit = () => {
+    let form = formData;
     if (taskEdit) {
-      handleCreateOrEditTask({ ...taskEdit, ...formData });
-    } else {
-      handleCreateOrEditTask(formData);
+      form = { ...taskEdit, ...form };
     }
-    setFormData({ title: "", description: "" });
+    handleCreateOrEditTask(form).then((result) => {
+      onClickCloseForm();
+    });
   };
+
+  const onClickCloseForm = () => {
+    setFormData({ title: "", description: "" });
+    handleCloseForm();
+  };
+
   return (
-    <FormOverlay isOpen={isOpenForm} onClick={(e) => handleCloseForm()}>
+    <FormOverlay isOpen={isOpenForm} onClick={(e) => onClickCloseForm()}>
       <BoardForm onClick={(e) => e.stopPropagation()}>
         <h3> {taskEdit ? "Edit Task" : "Create Task"}</h3>
         <FormGroup className="form-group">
@@ -123,7 +130,7 @@ const BoardFrom = ({
             )}
             {taskEdit ? "Edit" : "Create"}
           </FormButton>
-          <FormButton type="button" onClick={() => handleCloseForm()}>
+          <FormButton type="button" onClick={() => onClickCloseForm()}>
             Cancel
           </FormButton>
         </FormGroup>
