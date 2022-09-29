@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
+
 import {
   FormOverlay,
   BoardForm,
@@ -7,31 +9,39 @@ import {
   TextInput,
   FormButton,
   FormMessageError,
-} from './BoardForm.style';
+  FormIconLoader,
+} from "./BoardForm.style";
 
-const BoardFrom = ({ isOpenForm, handelCloseForm, handelCreateTask, taskEdit, handelEditTask }) => {
+const BoardFrom = ({
+  isOpenForm,
+  handleCloseForm,
+  taskEdit,
+  handleCreateOrEditTask,
+  isLoadingForm,
+}) => {
   useEffect(() => {
     if (taskEdit) {
-      const { title, description } = taskEdit;
-      setFormData({ title, description });
+      setFormData(taskEdit);
     } else {
-      setFormData({ title: '', description: '' });
+      setFormData({ id: "", title: "", description: "", assignee: {} });
     }
   }, [taskEdit]);
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
+    id: "",
+    title: "",
+    description: "",
+    assignee: {},
   });
 
   const [messageError, setMessageError] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
   });
 
   const onChangeInput = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
-    setMessageError({ ...messageError, [e.target.name]: '' });
+    setMessageError({ ...messageError, [e.target.name]: "" });
   };
 
   const onClickCreateForm = (e) => {
@@ -39,29 +49,33 @@ const BoardFrom = ({ isOpenForm, handelCloseForm, handelCreateTask, taskEdit, ha
     //validate
     let error = messageError;
     if (!formData.title) {
-      error = { ...error, title: 'Title is required !' };
+      error = { ...error, title: "Title is required !" };
     }
     if (!formData.description) {
-      error = { ...error, description: 'Description is required !' };
+      error = { ...error, description: "Description is required !" };
     }
     //action
     if (Object.values(error).find((task) => task.length > 0)) {
       setMessageError(error);
     } else {
       //check: edit task
-      if (taskEdit) {
-        handelEditTask({ ...taskEdit, ...formData });
-      } else {
-        handelCreateTask(formData);
-      }
-      //reset form
-      setFormData({ title: '', description: '' });
-      handelCloseForm();
+      Swal.fire({
+        title: "Do you want to save the changes?",
+        showCancelButton: true,
+        confirmButtonText: "Save",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          handleOnSubmit();
+        }
+      });
     }
   };
 
+  const handleOnSubmit = () => {
+    handleCreateOrEditTask(formData);
+  };
   return (
-    <FormOverlay isOpen={isOpenForm} onClick={(e) => handelCloseForm()}>
+    <FormOverlay isOpen={isOpenForm} onClick={(e) => handleCloseForm()}>
       <BoardForm onClick={(e) => e.stopPropagation()}>
         <h3>Create Task</h3>
         <FormGroup className="form-group">
@@ -75,7 +89,9 @@ const BoardFrom = ({ isOpenForm, handelCloseForm, handelCreateTask, taskEdit, ha
               onChangeInput(e);
             }}
           />
-          {messageError.title && <FormMessageError>{messageError.title}</FormMessageError>}
+          {messageError.title && (
+            <FormMessageError>{messageError.title}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Description</FormLabel>
@@ -88,7 +104,9 @@ const BoardFrom = ({ isOpenForm, handelCloseForm, handelCreateTask, taskEdit, ha
               onChangeInput(e);
             }}
           />
-          {messageError.description && <FormMessageError>{messageError.description}</FormMessageError>}
+          {messageError.description && (
+            <FormMessageError>{messageError.description}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group form-group-btn">
           <FormButton
@@ -97,9 +115,14 @@ const BoardFrom = ({ isOpenForm, handelCloseForm, handelCreateTask, taskEdit, ha
               onClickCreateForm(e);
             }}
           >
-            {taskEdit ? 'Edit' : 'Create'}
+            {isLoadingForm && (
+              <FormIconLoader>
+                <i className="las la-spinner"></i>
+              </FormIconLoader>
+            )}
+            {taskEdit ? "Edit" : "Create"}
           </FormButton>
-          <FormButton type="button" onClick={() => handelCloseForm()}>
+          <FormButton type="button" onClick={() => handleCloseForm()}>
             Cancel
           </FormButton>
         </FormGroup>
