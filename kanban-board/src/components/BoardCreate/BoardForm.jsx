@@ -19,20 +19,16 @@ const BoardFrom = ({
   handleCreateOrEditTask,
   isLoadingForm,
 }) => {
-  useEffect(() => {
-    if (taskEdit) {
-      setFormData(taskEdit);
-    } else {
-      setFormData({ id: "", title: "", description: "", assignee: {} });
-    }
-  }, [taskEdit]);
-
   const [formData, setFormData] = useState({
-    id: "",
     title: "",
     description: "",
-    assignee: {},
   });
+
+  useEffect(() => {
+    if (taskEdit) {
+      setFormData({ title: taskEdit.title, description: taskEdit.description });
+    }
+  }, [taskEdit]);
 
   const [messageError, setMessageError] = useState({
     title: "",
@@ -72,12 +68,17 @@ const BoardFrom = ({
   };
 
   const handleOnSubmit = () => {
-    handleCreateOrEditTask(formData);
+    if (taskEdit) {
+      handleCreateOrEditTask({ ...taskEdit, ...formData });
+    } else {
+      handleCreateOrEditTask(formData);
+    }
+    setFormData({ title: "", description: "" });
   };
   return (
     <FormOverlay isOpen={isOpenForm} onClick={(e) => handleCloseForm()}>
       <BoardForm onClick={(e) => e.stopPropagation()}>
-        <h3>Create Task</h3>
+        <h3> {taskEdit ? "Edit Task" : "Create Task"}</h3>
         <FormGroup className="form-group">
           <FormLabel>Title</FormLabel>
           <TextInput

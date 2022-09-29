@@ -61,7 +61,6 @@ const Board = () => {
 
   const handleCloseForm = () => {
     setIsOpenForm(false);
-    setTaskEdit(null);
     setIsLoadingForm(false);
   };
 
@@ -84,6 +83,7 @@ const Board = () => {
             return item;
           })
         );
+        setTaskEdit(null);
         handleCloseForm();
       }, 1000);
     } else {
@@ -136,6 +136,10 @@ const Board = () => {
       timer: 1000,
     });
     setTaskOnAssign(null);
+  };
+
+  const handleSearch = () => {
+    setSearchKey(searchText);
   };
 
   const BoardListItem = ({ title, list }) => {
@@ -194,10 +198,6 @@ const Board = () => {
     );
   };
 
-  const handleSearch = () => {
-    setSearchKey(searchText);
-  };
-
   const listTodo = filter(
     listTask,
     (item) => item.status === TYPE_STATUS.TODO && item.title.includes(searchKey)
@@ -219,7 +219,6 @@ const Board = () => {
         <BoardAction>
           <BoardButton
             onClick={() => {
-              setTaskEdit(null);
               handleOpenForm();
             }}
           >
