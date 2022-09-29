@@ -53,6 +53,9 @@ const Board = () => {
   const [isLoadingForm, setIsLoadingForm] = useState(false);
 
   const handleOpenForm = () => {
+    if (taskOnAssign) {
+      setTaskOnAssign(null);
+    }
     setIsOpenForm(true);
   };
 
