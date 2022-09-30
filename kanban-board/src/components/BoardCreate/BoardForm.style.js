@@ -104,7 +104,7 @@ const rotate = keyframes`
 
 const FormIconLoader = styled.span`
   font-size: 19px;
-  color: #0089ff;
+  color: #fff;
   padding-right: 6px;
   i {
     animation: ${rotate} 2s linear infinite;

@@ -257,12 +257,14 @@ const Board = () => {
             <BoardListItem title={"TODO"} list={listTodo} />
           </BoardGroup>
           <BoardGroup
+            bgTitleColor={"#F8B445"}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e, TYPE_STATUS.INPROGRESS)}
           >
             <BoardListItem title={"INPROGRESS"} list={listInprogress} />
           </BoardGroup>
           <BoardGroup
+            bgTitleColor={"#4BC456"}
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => handleDrop(e, TYPE_STATUS.DONE)}
           >

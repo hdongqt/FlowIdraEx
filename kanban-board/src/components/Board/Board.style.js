@@ -17,9 +17,14 @@ const BoardGroup = styled.div`
   background-color: #f4f5f7;
   position: relative;
   z-index: 1;
-  padding: 10px 10px;
+  padding: 0px 0px 10px 0px;
   & > h2 {
-    padding-bottom: 10px;
+    color: #fff;
+    padding: 10px 4px;
+    text-align: center;
+    border-radius: 6px 6px 0 0;
+    background-color: ${(props) =>
+      props.bgTitleColor ? props.bgTitleColor : "#507bcc"};
   }
 `;
 const BoardList = styled.div`
@@ -27,6 +32,7 @@ const BoardList = styled.div`
   flex-direction: column;
   justify-content: center;
   gap: 12px;
+  padding: 10px 10px;
   position: relative;
   z-index: 1;
 `;
@@ -37,6 +43,7 @@ const BoardItem = styled.div`
   position: relative;
   background-color: #fff;
   border-radius: 6px;
+  border: 1px solid #a29595;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
   min-height: 120px;
