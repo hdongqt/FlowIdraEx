@@ -207,16 +207,21 @@ const Board = () => {
 
   const listTodo = filter(
     listTask,
-    (item) => item.status === TYPE_STATUS.TODO && item.title.includes(searchKey)
+    (item) =>
+      item.status === TYPE_STATUS.TODO &&
+      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
   );
   const listInprogress = filter(
     listTask,
     (item) =>
-      item.status === TYPE_STATUS.INPROGRESS && item.title.includes(searchKey)
+      item.status === TYPE_STATUS.INPROGRESS &&
+      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
   );
   const listDone = filter(
     listTask,
-    (item) => item.status === TYPE_STATUS.DONE && item.title.includes(searchKey)
+    (item) =>
+      item.status === TYPE_STATUS.DONE &&
+      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
   );
 
   return (
