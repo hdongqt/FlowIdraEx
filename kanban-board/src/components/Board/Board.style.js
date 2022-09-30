@@ -43,13 +43,14 @@ const BoardItem = styled.div`
   position: relative;
   background-color: #fff;
   border-radius: 6px;
-  border: 1px solid #a29595;
+  border: 2px solid #9b50cc;
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
     0 8px 10px -6px rgb(0 0 0 / 0.1);
   min-height: 120px;
   transition: 0.2s linear;
   &:hover {
-    background-color: #ccc;
+    /* background-color: #ccc; */
+    border-color: #ff05d7;
   }
 `;
 
