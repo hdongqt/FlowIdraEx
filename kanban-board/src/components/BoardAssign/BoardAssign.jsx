@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { listUsers, myUser } from "../../utils/user";
 import {
   BoardAssignModal,
   BoardAssignTo,
@@ -8,41 +9,11 @@ import {
   BoardAssignAssignToMe,
 } from "./BoardAssign.style";
 
-// Biến user hiện tại
-const myUser = {
-  id: 4,
-  name: "Hoang Huu Dong",
-  email: "hdongqt@example.com",
-};
-
 const BoardAssign = ({
   taskAssign,
   handleChangeAssignment,
   setTaskOnAssign,
 }) => {
-  const listUsers = [
-    {
-      id: 1,
-      name: "Johnss",
-      email: "johndoe@example.com",
-    },
-    {
-      id: 2,
-      name: "Alice",
-      email: "alice@example.com",
-    },
-    {
-      id: 3,
-      name: "Microsoft",
-      email: "micoskdo@example.com",
-    },
-    {
-      id: 4,
-      name: "Hoang Huu Dong",
-      email: "hdongqt@example.com",
-    },
-  ];
-
   const [taskAssignSelected, setTaskAssignSelected] = useState(null);
 
   useEffect(() => {

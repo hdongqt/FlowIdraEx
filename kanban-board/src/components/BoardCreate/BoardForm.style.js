@@ -68,6 +68,25 @@ const TextArea = styled.textarea`
   max-width: 100%;
 `;
 
+const FormSelect = styled.select`
+  outline: none;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  padding: 8px 8px;
+`;
+
+const FormAssignToMe = styled.span`
+  margin-top: 14px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #2b6fdd;
+  align-self: flex-start;
+  border-bottom: 1px solid transparent;
+  &:hover {
+    border-bottom-color: #ccc;
+  }
+`;
+
 const FormButton = styled.button`
   font-size: 16px;
   outline: none;
@@ -118,6 +137,8 @@ export {
   FormLabel,
   TextInput,
   TextArea,
+  FormSelect,
+  FormAssignToMe,
   FormButton,
   FormMessageError,
   FormIconLoader,
