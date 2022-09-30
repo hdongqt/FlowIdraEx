@@ -7,6 +7,7 @@ import {
   FormGroup,
   FormLabel,
   TextInput,
+  TextArea,
   FormButton,
   FormMessageError,
   FormIconLoader,
@@ -54,16 +55,7 @@ const BoardFrom = ({
     if (Object.values(error).find((task) => task.length > 0)) {
       setMessageError(error);
     } else {
-      //check: edit task
-      Swal.fire({
-        title: "Do you want to save the changes?",
-        showCancelButton: true,
-        confirmButtonText: "Save",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          handleOnSubmit();
-        }
-      });
+      handleOnSubmit();
     }
   };
 
@@ -72,8 +64,15 @@ const BoardFrom = ({
     if (taskEdit) {
       form = { ...taskEdit, ...form };
     }
-    handleCreateOrEditTask(form).then((result) => {
+    handleCreateOrEditTask(form).then((mess) => {
       onClickCloseForm();
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: mess || "Save successfully !",
+        showConfirmButton: false,
+        timer: 1000,
+      });
     });
   };
 
@@ -103,8 +102,8 @@ const BoardFrom = ({
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Description</FormLabel>
-          <TextInput
-            type="text"
+          <TextArea
+            rows={10}
             placeholder="Please enter description"
             name="description"
             value={formData.description}

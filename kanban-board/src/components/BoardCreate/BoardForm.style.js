@@ -21,6 +21,8 @@ const BoardForm = styled.form`
   background-color: #fff;
   z-index: 9;
   border-radius: 20px;
+  max-height: 100vh;
+  overflow-y: auto;
   padding: 30px 60px;
   transition: 0.2s linear;
   & > h3 {
@@ -58,6 +60,14 @@ const TextInput = styled.input.attrs({
   padding: 8px 8px;
 `;
 
+const TextArea = styled.textarea`
+  outline: none;
+  border: 1px solid #ccc;
+  padding: 8px 8px;
+  font-size: 16px;
+  max-width: 100%;
+`;
+
 const FormButton = styled.button`
   font-size: 16px;
   outline: none;
@@ -79,6 +89,7 @@ const FormButton = styled.button`
 const FormMessageError = styled.span`
   font-size: 14px;
   color: #c32b30;
+  padding-top: 6px;
 `;
 
 const rotate = keyframes`
@@ -106,6 +117,7 @@ export {
   FormGroup,
   FormLabel,
   TextInput,
+  TextArea,
   FormButton,
   FormMessageError,
   FormIconLoader,

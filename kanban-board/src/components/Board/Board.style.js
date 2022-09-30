@@ -106,14 +106,24 @@ const BoardAssignButton = styled.span`
   bottom: 10px;
   right: 10px;
   font-size: 14px;
-  color: #004eff;
+  color: #333;
+  border-bottom: 1px solid transparent;
   cursor: pointer;
+  transition: 0.2s linear;
   &:hover {
-    color: #194bbe;
+    color: #000;
+    border-bottom-color: #333;
   }
   i {
     padding-left: 6px;
     font-size: 20px;
+  }
+  span {
+    color: #0035ff;
+    padding-left: 4px;
+  }
+  .unassign {
+    color: #ff4444;
   }
 `;
 export {

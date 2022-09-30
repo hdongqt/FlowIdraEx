@@ -48,7 +48,6 @@ const BoardAssign = ({
   useEffect(() => {
     setTaskAssignSelected(taskAssign);
   }, [taskAssign]);
-
   const onChangeAssign = (id) => {
     const userAssignSelected = listUsers.find((user) => user.id === id);
     const taskChange = {
@@ -100,9 +99,11 @@ const BoardAssign = ({
           <i className="las la-check"></i>
         </BoardAssignApply>
       </BoardAssignTo>
-      <BoardAssignAssignToMe onClick={() => onClickAssignToMe()}>
-        Assign to me
-      </BoardAssignAssignToMe>
+      {taskAssign && myUser.email !== taskAssign.assignee.email && (
+        <BoardAssignAssignToMe gnAssignToMe onClick={() => onClickAssignToMe()}>
+          Assign to me
+        </BoardAssignAssignToMe>
+      )}
       <BoardAssignClose onClick={() => setTaskOnAssign(null)}>
         X
       </BoardAssignClose>

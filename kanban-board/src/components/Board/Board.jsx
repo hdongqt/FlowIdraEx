@@ -86,7 +86,7 @@ const Board = () => {
               return item;
             })
           );
-          resolve();
+          resolve("Edit task successfully !");
           setTaskEdit(null);
         }, 1000)
       );
@@ -98,7 +98,7 @@ const Board = () => {
             ...listTask,
             { ...task, id: handleRandomId(), status: TYPE_STATUS.TODO },
           ]);
-          resolve();
+          resolve("New task created successfully !");
         }, 1000);
       });
     }
@@ -136,7 +136,7 @@ const Board = () => {
   const handleChangeAssignment = (task) => {
     setListTask(map(listTask, (item) => (item.id === task.id ? task : item)));
     Swal.fire({
-      position: "top-end",
+      position: "center",
       icon: "success",
       title: "Change assignment successfully !",
       showConfirmButton: false,
@@ -194,9 +194,12 @@ const Board = () => {
                 <i className="las la-edit"></i>
               </BoardIcon>
               <BoardAssignButton onClick={() => setTaskOnAssign(todo)}>
-                {todo.assignee && todo.assignee.name
-                  ? `Assignee : ${todo.assignee.name}`
-                  : "Assign: Unassigned"}
+                Assignee:
+                {todo.assignee && todo.assignee.name ? (
+                  <span>{todo.assignee.name}</span>
+                ) : (
+                  <span className="unassign">Unassigned</span>
+                )}
               </BoardAssignButton>
             </BoardItem>
           ))}
