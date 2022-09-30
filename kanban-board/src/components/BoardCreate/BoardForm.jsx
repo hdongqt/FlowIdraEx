@@ -118,6 +118,7 @@ const BoardFrom = ({
         <FormGroup className="form-group form-group-btn">
           <FormButton
             type="submit"
+            isSubmit={true}
             onClick={(e) => {
               onClickCreateForm(e);
             }}

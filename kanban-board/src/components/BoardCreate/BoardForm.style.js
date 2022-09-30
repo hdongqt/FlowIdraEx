@@ -73,14 +73,14 @@ const FormButton = styled.button`
   outline: none;
   padding: 8px 12px;
   min-width: 80px;
-  background-color: ${(props) => (props.isSubmit ? "#2769c8de" : "#fff")};
+  background-color: ${(props) => (props.isSubmit ? "#0065f7de" : "#fff")};
   border: 1px solid #ccc;
   color: ${(props) => (props.isSubmit ? "white" : "#000")};
   border-radius: 4px;
   cursor: pointer;
   &:hover {
-    background-color: #c8ddf6;
-    color: #fff;
+    background-color: ${(props) => (props.isSubmit ? "#0065ff" : "#fff")};
+    border: ${(props) => !props.isSubmit && "1px solid #0065ff"};
   }
   & + button {
     margin-left: 10px;
