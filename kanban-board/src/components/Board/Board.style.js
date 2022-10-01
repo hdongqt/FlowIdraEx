@@ -1,7 +1,6 @@
 import styled from "styled-components";
 const BoardContainer = styled.div`
-  width: 100%;
-  height: 100vh;
+  flex: 1;
   padding: 30px 100px;
 `;
 
@@ -71,8 +70,8 @@ const BoardIcon = styled.span`
 
 const AppTitle = styled.h1`
   text-align: center;
+  padding-bottom: 20px;
 `;
-
 const BoardButton = styled.button`
   outline: none;
   border: 1px solid #ccc;

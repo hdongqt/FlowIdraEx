@@ -229,8 +229,8 @@ const Board = () => {
 
   return (
     <>
-      <AppTitle>Kanban board</AppTitle>
       <BoardContainer>
+        <AppTitle>Kanban board</AppTitle>
         <BoardAction>
           <BoardButton
             onClick={() => {
