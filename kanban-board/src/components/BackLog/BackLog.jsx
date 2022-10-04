@@ -62,8 +62,8 @@ const BackLog = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) => {
     e.preventDefault();
     if (e.type === "contextmenu") {
       setLocationOffset({
-        top: e.pageY,
-        left: e.pageX,
+        top: e.clientY,
+        left: e.clientX,
       });
       setTaskSelectRight(taskSelect);
       const activeElement = document.querySelector(".backlog-sento");
