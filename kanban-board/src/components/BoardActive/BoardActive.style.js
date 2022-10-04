@@ -50,6 +50,13 @@ const BoardItem = styled.div`
   }
   & > h3 {
     max-width: 80%;
+    font-size: 16px;
+    line-height: 18px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
   }
   &.selected {
     background-color: #ccc;

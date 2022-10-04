@@ -11,6 +11,7 @@ import {
   BoardInfoAssignToMe,
   FormInfoMain,
   FormInfoItem,
+  BoardInfoTaskTitleInput,
   BoardInfoTaskTitle,
   FormInfoTextArea,
   FormInfoGroup,
@@ -23,6 +24,7 @@ import {
 const BoardInfo = ({ taskEdit, setTaskEdit, handelEditTask }) => {
   const [formData, setFormData] = useState(null);
   const [isLoadingForm, setIsLoadingForm] = useState(false);
+  const [isEditTitle, setIsEditTitle] = useState(false);
   const [messageError, setMessageError] = useState({
     title: "",
     description: "",
@@ -49,6 +51,11 @@ const BoardInfo = ({ taskEdit, setTaskEdit, handelEditTask }) => {
 
   const onClickAssignToMe = () => {
     setFormData({ ...formData, assignee: myUser });
+  };
+
+  const handleCloseForm = () => {
+    setTaskEdit(null);
+    setMessageError({ title: "", description: "", assignee: "", typeIssue: "", priority: "" });
   };
 
   const onSubmitFormInfo = () => {
@@ -91,12 +98,20 @@ const BoardInfo = ({ taskEdit, setTaskEdit, handelEditTask }) => {
       {formData && (
         <form action="">
           <BoardInfoInfoTask>
-            <BoardInfoTaskTitle
-              type="text"
-              value={formData.title}
-              name="title"
-              onChange={(e) => onChangeInput(e)}
-            ></BoardInfoTaskTitle>
+            {isEditTitle ? (
+              <>
+                <BoardInfoTaskTitleInput
+                  type="text"
+                  value={formData.title}
+                  name="title"
+                  onChange={(e) => onChangeInput(e)}
+                  autoFocus={true}
+                  onBlur={(e) => setIsEditTitle(false)}
+                ></BoardInfoTaskTitleInput>
+              </>
+            ) : (
+              <BoardInfoTaskTitle onClick={() => setIsEditTitle(true)}>{formData.title}</BoardInfoTaskTitle>
+            )}
             {messageError.title && <FormMessageError>{messageError.title}</FormMessageError>}
           </BoardInfoInfoTask>
           <FormInfoMain>
@@ -191,13 +206,13 @@ const BoardInfo = ({ taskEdit, setTaskEdit, handelEditTask }) => {
                 )}
                 Save
               </FormInfoButton>
-              <FormInfoButton type="button" onClick={() => setTaskEdit(null)}>
+              <FormInfoButton type="button" onClick={() => handleCloseForm()}>
                 Cancle
               </FormInfoButton>
             </FormInfoGroupButton>
           </FormInfoMain>
 
-          <BoardInfoClose type="button" onClick={() => setTaskEdit(null)}>
+          <BoardInfoClose type="button" onClick={() => handleCloseForm()}>
             X
           </BoardInfoClose>
         </form>

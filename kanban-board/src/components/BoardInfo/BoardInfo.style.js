@@ -98,10 +98,11 @@ const FormInfoItem = styled.div`
   }
 `;
 
-const BoardInfoTaskTitle = styled.input`
-  font-size: 26px;
+const BoardInfoTaskTitleInput = styled.input`
+  font-size: 16px;
   outline: none;
   border: 1px solid transparent;
+  padding: 4px 8px;
   font-weight: 600;
   width: 100%;
   &:hover {
@@ -109,6 +110,15 @@ const BoardInfoTaskTitle = styled.input`
   }
   &:focus {
     border-color: #333;
+  }
+`;
+
+const BoardInfoTaskTitle = styled.h3`
+  border: 1px solid transparent;
+  word-wrap: break-word;
+  font-size: 16px;
+  &:hover {
+    border-color: #ccc;
   }
 `;
 
@@ -184,6 +194,7 @@ export {
   BoardInfoAssignToMe,
   FormInfoMain,
   FormInfoItem,
+  BoardInfoTaskTitleInput,
   BoardInfoTaskTitle,
   FormInfoTextArea,
   FormInfoGroup,

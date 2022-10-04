@@ -31,7 +31,7 @@ const Board = () => {
     },
     {
       id: 2,
-      title: "Board 2",
+      title: "Board Board Board Board Board Board Board Board Board Board Board Board Board Board 2",
       description: "Board 2 description",
       status: TYPE_STATUS.TODO,
       active: true,
