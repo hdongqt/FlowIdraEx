@@ -1,35 +1,28 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { findIndex, find, filter, map } from "lodash";
-import BoardForm from "../BoardCreate/BoardForm";
-import BoardAssign from "./../BoardAssign/BoardAssign";
-import {
-  BoardContainer,
-  BoardMain,
-  BoardGroup,
-  BoardList,
-  BoardItem,
-  AppTitle,
-  BoardButton,
-  BoardIcon,
-  BoardSearch,
-  BoardAction,
-  BoardAssignButton,
-} from "./Board.style";
-
-const TYPE_STATUS = {
-  TODO: "TODO",
-  INPROGRESS: "INPROGRESS",
-  DONE: "DONE",
-};
+import { Routes, Route } from "react-router-dom";
+import { filter } from "lodash";
+import BoardInfo from "../BoardInfo/BoardInfo";
+import { TYPE_STATUS } from "../../utils/typeTask";
+import BoardActive from "./../BoardActive/BoardActive";
+import BackLog from "./../BackLog/BackLog";
 
 const Board = () => {
   const [listTask, setListTask] = useState([
     {
       id: 1,
       title: "Board 1",
-      description: "Board 1 description",
+      description:
+        "Board 1 description Board 1 description Board 1 descriptionBoard 1 description Board 1 description Board 1 description Board 1 description",
       status: TYPE_STATUS.TODO,
+      active: true,
+      typeIssue: "BUG",
+      priority: "MEDIUM",
+      reporter: {
+        id: 2,
+        name: "Alice",
+        email: "alice@example.com",
+      },
       assignee: {
         id: 2,
         name: "Alice",
@@ -41,67 +34,32 @@ const Board = () => {
       title: "Board 2",
       description: "Board 2 description",
       status: TYPE_STATUS.TODO,
+      active: true,
+      typeIssue: "TASK",
+      priority: "MEDIUM",
+      reporter: {
+        id: 2,
+        name: "Alice",
+        email: "alice@example.com",
+      },
       assignee: {},
     },
   ]);
-
-  const [isOpenForm, setIsOpenForm] = useState(false);
   const [taskEdit, setTaskEdit] = useState(null);
-  const [searchText, setSearchText] = useState("");
-  const [searchKey, setSearchKey] = useState("");
-  const [taskOnAssign, setTaskOnAssign] = useState(null);
-  const [isLoadingForm, setIsLoadingForm] = useState(false);
 
-  const handleOpenForm = () => {
-    if (taskOnAssign) {
-      setTaskOnAssign(null);
-    }
-    setIsOpenForm(true);
-  };
-
-  const handleCloseForm = () => {
-    setIsOpenForm(false);
-    setIsLoadingForm(false);
-    if (taskEdit) setTaskEdit(null);
-  };
-
-  const handleRandomId = () => {
-    const id = Math.floor(Math.random() * 1000) + 1;
-    if (find(listTask, (task) => task.id === id)) {
-      return handleRandomId();
-    } else {
-      return id;
-    }
-  };
-
-  const handleCreateOrEditTask = (task) => {
-    setIsLoadingForm(true);
-    //edit
-    if (task.id) {
-      return new Promise((resolve) =>
-        setTimeout(() => {
-          setListTask(
-            map(listTask, (item) => {
-              if (item.id === task.id) return task;
-              return item;
-            })
-          );
-          resolve("Edit task successfully !");
-          setTaskEdit(null);
-        }, 1000)
-      );
-      //create
-    } else {
-      return new Promise(function (resolve) {
-        setTimeout(() => {
-          setListTask([
-            ...listTask,
-            { ...task, id: handleRandomId(), status: TYPE_STATUS.TODO },
-          ]);
-          resolve("New task created successfully !");
-        }, 1000);
-      });
-    }
+  const handelEditTask = (task) => {
+    return new Promise((resolve) =>
+      setTimeout(() => {
+        const listNew = listTask.map((item) => {
+          if (item.id === task.id) {
+            return task;
+          } else return item;
+        });
+        setListTask(listNew);
+        resolve("Edit task successfully !");
+        setTaskEdit(null);
+      }, 1000)
+    );
   };
 
   const handleDeleteTask = (id) => {
@@ -121,169 +79,34 @@ const Board = () => {
     });
   };
 
-  const onDragStart = (e, id) => {
-    e.dataTransfer.setData("id", id);
-  };
-
-  const handleDrop = (e, status) => {
-    const id = +e.dataTransfer.getData("id");
-    const index = findIndex(listTask, (todo) => todo.id === id);
-    let list = [...listTask];
-    list[index].status = status;
-    setListTask(list);
-  };
-
-  const handleChangeAssignment = (task) => {
-    setListTask(map(listTask, (item) => (item.id === task.id ? task : item)));
-    Swal.fire({
-      position: "center",
-      icon: "success",
-      title: "Change assignment successfully !",
-      showConfirmButton: false,
-      timer: 1000,
-    });
-    setTaskOnAssign(null);
-  };
-
-  const handleSearch = () => {
-    setSearchKey(searchText);
-  };
-
-  const BoardListItem = ({ title, list }) => {
-    return (
-      <>
-        <h2>
-          {title} ({list.length})
-        </h2>
-        <BoardList>
-          {list.map((todo) => (
-            <BoardItem
-              key={todo.id}
-              draggable={true}
-              onDragStart={(e) => onDragStart(e, todo.id)}
-            >
-              <h3>{todo.title}</h3>
-              <p>{todo.description}</p>
-              <BoardIcon
-                onClick={() => handleDeleteTask(todo.id)}
-                top={"10px"}
-                right={"10px"}
-              >
-                <i className="las la-trash-alt"></i>
-              </BoardIcon>
-              <BoardIcon
-                onClick={() => {
-                  setTaskEdit(todo);
-                  handleOpenForm();
-                }}
-                top={"10px"}
-                right={"35px"}
-                color={"blue"}
-              >
-                <i className="las la-edit"></i>
-              </BoardIcon>
-              <BoardIcon
-                onClick={() => {
-                  setTaskEdit(todo);
-                  handleOpenForm();
-                }}
-                top={"10px"}
-                right={"35px"}
-                color={"blue"}
-              >
-                <i className="las la-edit"></i>
-              </BoardIcon>
-              <BoardAssignButton onClick={() => setTaskOnAssign(todo)}>
-                Assignee:
-                {todo.assignee && todo.assignee.name ? (
-                  <span>{todo.assignee.name}</span>
-                ) : (
-                  <span className="unassign">Unassigned</span>
-                )}
-              </BoardAssignButton>
-            </BoardItem>
-          ))}
-        </BoardList>
-      </>
-    );
-  };
-
-  const listTodo = filter(
-    listTask,
-    (item) =>
-      item.status === TYPE_STATUS.TODO &&
-      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
-  );
-  const listInprogress = filter(
-    listTask,
-    (item) =>
-      item.status === TYPE_STATUS.INPROGRESS &&
-      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
-  );
-  const listDone = filter(
-    listTask,
-    (item) =>
-      item.status === TYPE_STATUS.DONE &&
-      item.title.toLowerCase().includes(searchKey.trim().toLowerCase())
-  );
-
   return (
     <>
-      <BoardContainer>
-        <AppTitle>Kanban board</AppTitle>
-        <BoardAction>
-          <BoardButton
-            onClick={() => {
-              handleOpenForm();
-            }}
-          >
-            Create
-          </BoardButton>
-          <BoardSearch
-            type="text"
-            placeholder="Type to search..."
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") handleSearch();
-            }}
-          />
-          <BoardButton onClick={() => handleSearch()}>Search</BoardButton>
-        </BoardAction>
-        <BoardMain>
-          <BoardGroup
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => handleDrop(e, TYPE_STATUS.TODO)}
-          >
-            <BoardListItem title={"TODO"} list={listTodo} />
-          </BoardGroup>
-          <BoardGroup
-            bgTitleColor={"#F8B445"}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => handleDrop(e, TYPE_STATUS.INPROGRESS)}
-          >
-            <BoardListItem title={"INPROGRESS"} list={listInprogress} />
-          </BoardGroup>
-          <BoardGroup
-            bgTitleColor={"#4BC456"}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={(e) => handleDrop(e, TYPE_STATUS.DONE)}
-          >
-            <BoardListItem title={"DONE"} list={listDone} />
-          </BoardGroup>
-        </BoardMain>
-      </BoardContainer>
-      <BoardForm
-        isOpenForm={isOpenForm}
-        isLoadingForm={isLoadingForm}
-        handleCloseForm={handleCloseForm}
-        handleCreateOrEditTask={handleCreateOrEditTask}
-        taskEdit={taskEdit}
-      />
-      <BoardAssign
-        taskAssign={taskOnAssign}
-        handleChangeAssignment={handleChangeAssignment}
-        setTaskOnAssign={setTaskOnAssign}
-      />
+      <Routes>
+        <Route
+          path="/"
+          exact
+          element={
+            <BoardActive
+              listTask={listTask}
+              setListTask={setListTask}
+              setTaskEdit={setTaskEdit}
+              handleDeleteTask={handleDeleteTask}
+            />
+          }
+        ></Route>
+        <Route
+          path="/backlog"
+          element={
+            <BackLog
+              listTask={listTask}
+              setListTask={setListTask}
+              setTaskEdit={setTaskEdit}
+              handleDeleteTask={handleDeleteTask}
+            />
+          }
+        ></Route>
+      </Routes>
+      <BoardInfo taskEdit={taskEdit} setTaskEdit={setTaskEdit} handelEditTask={handelEditTask} />
     </>
   );
 };

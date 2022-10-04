@@ -1,8 +1,6 @@
-import { Routes, Route } from "react-router-dom";
 import styled from "styled-components";
-import Board from "./components/Board/Board";
 import SideBar from "./components/SideBar/SideBar";
-import BackLog from "./components/BackLog/BackLog";
+import Board from "./components/Board/Board";
 const AppContainer = styled.div`
   display: flex;
 `;
@@ -14,13 +12,16 @@ const MainContainer = styled.div`
 
 function App() {
   return (
-    <AppContainer className="App">
+    <AppContainer
+      className="App"
+      onClick={() => {
+        const active = document.querySelector(".backlog-sento");
+        if (active) active.style.display = "none";
+      }}
+    >
       <SideBar />
       <MainContainer>
-        <Routes>
-          <Route path="/" element={<Board />}></Route>
-          <Route path="/backlog" element={<BackLog />}></Route>
-        </Routes>
+        <Board />
       </MainContainer>
     </AppContainer>
   );

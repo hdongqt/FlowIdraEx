@@ -35,9 +35,10 @@ const SideBarMenu = styled.ul`
     text-decoration: none;
     padding: 8px 4px;
     color: #5e5858;
+    border-radius: 4px;
     &:hover {
       background-color: #ccc;
-      color: #000;
+      color: #fff;
     }
   }
 `;

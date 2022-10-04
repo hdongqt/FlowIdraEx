@@ -21,14 +21,14 @@ const BoardForm = styled.form`
   background-color: #fff;
   z-index: 9;
   border-radius: 20px;
-  max-height: 100vh;
   overflow-y: auto;
+  height: calc(100vh - 40px);
   padding: 30px 60px;
   transition: 0.2s linear;
   & > h3 {
     text-align: center;
     font-size: 30px;
-    padding-bottom: 50px;
+    padding-bottom: 16px;
   }
 `;
 const FormGroup = styled.div`
@@ -36,7 +36,7 @@ const FormGroup = styled.div`
   flex-direction: column;
 
   & + .form-group {
-    margin-top: 30px;
+    margin-top: 20px;
   }
   &.form-group-btn {
     display: flex;

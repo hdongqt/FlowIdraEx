@@ -22,8 +22,7 @@ const BoardGroup = styled.div`
     padding: 10px 4px;
     text-align: center;
     border-radius: 6px 6px 0 0;
-    background-color: ${(props) =>
-      props.bgTitleColor ? props.bgTitleColor : "#507bcc"};
+    background-color: ${(props) => (props.bgTitleColor ? props.bgTitleColor : "#507bcc")};
   }
 `;
 const BoardList = styled.div`
@@ -43,13 +42,14 @@ const BoardItem = styled.div`
   background-color: #fff;
   border-radius: 6px;
   border: 2px solid #9b50cc;
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1),
-    0 8px 10px -6px rgb(0 0 0 / 0.1);
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   min-height: 120px;
   transition: 0.2s linear;
   &:hover {
-    /* background-color: #ccc; */
     border-color: #ff05d7;
+  }
+  & > h3 {
+    max-width: 80%;
   }
 `;
 
@@ -95,7 +95,6 @@ const BoardSearch = styled.input`
   font-size: 16px;
   padding: 8px 10px;
   border-radius: 4px;
-  margin-left: 20px;
   margin-right: 10px;
 `;
 
@@ -106,7 +105,7 @@ const BoardAction = styled.div`
   padding-bottom: 20px;
 `;
 
-const BoardAssignButton = styled.span`
+const BoardAssign = styled.span`
   display: flex;
   align-items: center;
   position: absolute;
@@ -114,12 +113,9 @@ const BoardAssignButton = styled.span`
   right: 10px;
   font-size: 14px;
   color: #333;
-  border-bottom: 1px solid transparent;
-  cursor: pointer;
   transition: 0.2s linear;
   &:hover {
     color: #000;
-    border-bottom-color: #333;
   }
   i {
     padding-left: 6px;
@@ -144,5 +140,5 @@ export {
   BoardIcon,
   BoardSearch,
   BoardAction,
-  BoardAssignButton,
+  BoardAssign,
 };

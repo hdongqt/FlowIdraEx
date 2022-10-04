@@ -5,10 +5,7 @@ const SideBar = () => {
   return (
     <SideBarContainer>
       <SideBarLogo to="/">
-        <img
-          src="https://jira.idra.al/secure/projectavatar?avatarId=10324"
-          alt="logo"
-        />
+        <img src="https://jira.idra.al/secure/projectavatar?avatarId=10324" alt="logo" />
         <h2>VN - Interns</h2>
       </SideBarLogo>
       <SideBarMenu>
