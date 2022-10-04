@@ -16,7 +16,7 @@ import {
   BoardAssign,
 } from "./BoardActive.style";
 
-const BoardListItem = ({ title, list, handleDeleteTask, setTaskEdit }) => {
+const BoardListItem = ({ title, list, handleDeleteTask, taskEdit, setTaskEdit }) => {
   const onDragStart = (e, id) => {
     e.dataTransfer.setData("id", id);
   };
@@ -27,7 +27,12 @@ const BoardListItem = ({ title, list, handleDeleteTask, setTaskEdit }) => {
       </h2>
       <BoardList>
         {list.map((todo) => (
-          <BoardItem key={todo.id} draggable={true} onDragStart={(e) => onDragStart(e, todo.id)}>
+          <BoardItem
+            key={todo.id}
+            draggable={true}
+            onDragStart={(e) => onDragStart(e, todo.id)}
+            className={`${todo.id === taskEdit?.id ? "selected" : ""}`}
+          >
             <h3>{todo.title}</h3>
             <BoardIcon onClick={() => handleDeleteTask(todo.id)} top={"10px"} right={"10px"}>
               <i className="las la-trash-alt"></i>
@@ -67,7 +72,7 @@ const BoardListItem = ({ title, list, handleDeleteTask, setTaskEdit }) => {
   );
 };
 
-const BoardActive = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) => {
+const BoardActive = ({ listTask, setListTask, taskEdit, setTaskEdit, handleDeleteTask }) => {
   const [listTaskActive, setListTaskActive] = useState([]);
 
   const [searchText, setSearchText] = useState("");
@@ -123,6 +128,7 @@ const BoardActive = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) =
             listTask={listTaskActive}
             handleDeleteTask={handleDeleteTask}
             setTaskEdit={setTaskEdit}
+            taskEdit={taskEdit}
           />
         </BoardGroup>
         <BoardGroup
@@ -136,6 +142,7 @@ const BoardActive = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) =
             listTask={listTaskActive}
             handleDeleteTask={handleDeleteTask}
             setTaskEdit={setTaskEdit}
+            taskEdit={taskEdit}
           />
         </BoardGroup>
         <BoardGroup
@@ -149,6 +156,7 @@ const BoardActive = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) =
             listTask={listTaskActive}
             handleDeleteTask={handleDeleteTask}
             setTaskEdit={setTaskEdit}
+            taskEdit={taskEdit}
           />
         </BoardGroup>
       </BoardMain>

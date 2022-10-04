@@ -89,6 +89,7 @@ const Board = () => {
             <BoardActive
               listTask={listTask}
               setListTask={setListTask}
+              taskEdit={taskEdit}
               setTaskEdit={setTaskEdit}
               handleDeleteTask={handleDeleteTask}
             />

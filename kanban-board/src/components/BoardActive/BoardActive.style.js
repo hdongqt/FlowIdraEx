@@ -51,6 +51,9 @@ const BoardItem = styled.div`
   & > h3 {
     max-width: 80%;
   }
+  &.selected {
+    background-color: #ccc;
+  }
 `;
 
 const BoardIcon = styled.span`
