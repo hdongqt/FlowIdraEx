@@ -79,7 +79,7 @@ const BackLog = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) => {
       if (task.id === id) {
         return {
           ...task,
-          active: true,
+          active: !task.active,
         };
       } else return task;
     });
@@ -125,9 +125,9 @@ const BackLog = ({ listTask, setListTask, setTaskEdit, handleDeleteTask }) => {
       <BoardForm isOpenForm={isOpenForm} handleCloseForm={handleCloseForm} handleCreateTask={handleCreateTask} />
       {taskSelectRight && (
         <BackLogItemSendto className="backlog-sento" locationOffset={locationOffset}>
-          {!taskSelectRight.active && (
-            <button onClick={(e) => handelSendToActive(e, taskSelectRight.id)}>Active {taskSelectRight.id}</button>
-          )}
+          <button onClick={(e) => handelSendToActive(e, taskSelectRight.id)}>
+            {taskSelectRight.active ? "Unactive" : "Active"}
+          </button>
           <button onClick={(e) => handleDeleteTask(taskSelectRight.id)}>Delete</button>
         </BackLogItemSendto>
       )}
