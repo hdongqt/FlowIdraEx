@@ -51,9 +51,14 @@ export const getListTodo = createAsyncThunk("todos/getListTodo", async () => {
   return response;
 });
 
-export const addOrEditTodo = createAsyncThunk("todos/addOrEditTodo", async (todo, thunkAPI) => {
+export const addNewTodoFilter = createAsyncThunk("todos/addOrEditTodo", async (todo, thunkAPI) => {
   if (todo.title.includes("từ bậy")) todo.title = "Công việc vui vẻ";
   thunkAPI.dispatch(addTodo(todo));
+});
+
+export const editTodoFilter = createAsyncThunk("todos/addOrEditTodo", async (todo, thunkAPI) => {
+  if (todo.title.includes("từ bậy")) todo.title = "Công việc vui vẻ";
+  thunkAPI.dispatch(editTodo(todo));
 });
 
 // export reducer and actions

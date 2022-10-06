@@ -5,15 +5,15 @@ import * as TODO from "./Todo.style";
 import { useSelector, useDispatch } from "react-redux";
 import { changeFilter } from "./todoSlice";
 import { useEffect } from "react";
-import {getListTodo} from './todoSlice'
+import { getListTodo } from "./todoSlice";
 
 const Todo = () => {
   const filter = useSelector((state) => state.todos.filter);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getListTodo())
-  }, [dispatch])
-  
+    dispatch(getListTodo());
+  }, [dispatch]);
+
   return (
     <TODO.TodoContainer>
       <TODO.TodoHeader>Todo List</TODO.TodoHeader>

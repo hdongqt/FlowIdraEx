@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import * as ADD from "./AddTodo.style";
 import { useSelector, useDispatch } from "react-redux";
-import { addOrEditTodo, addTodo, editTodo, selectEditTodo } from "../Todo/todoSlice";
+import { editTodoFilter, addNewTodoFilter, selectEditTodo } from "../Todo/todoSlice";
 
 const AddTodo = ({ handelEditTodo, clearEditTodo }) => {
   const dispatch = useDispatch();
@@ -31,12 +31,11 @@ const AddTodo = ({ handelEditTodo, clearEditTodo }) => {
     if (title) {
       if (todoEdit) {
         const todo = { ...todoEdit, title: title };
-        dispatch(editTodo(todo));
+        dispatch(editTodoFilter(todo));
         dispatch(selectEditTodo(null));
         setTitle("");
       } else {
-        dispatch(addOrEditTodo({ id: handelRandomId(), title: title, done: false }))
-        // dispatch(addTodo({ id: handelRandomId(), title: title, done: false }));
+        dispatch(addNewTodoFilter({ id: handelRandomId(), title: title, done: false }));
         setTitle("");
       }
     } else {
@@ -58,6 +57,7 @@ const AddTodo = ({ handelEditTodo, clearEditTodo }) => {
       <ADD.AddTodoInput
         placeholder="Please enter a title for the task..."
         onChange={(e) => onChangeInput(e)}
+        onKeyDown={(e) => e.key === "Enter" && handelClickAddEditTodo()}
         value={title}
       ></ADD.AddTodoInput>
       {todoEdit && (
