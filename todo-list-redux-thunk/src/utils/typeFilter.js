@@ -1,0 +1,5 @@
+export const TYPE_FILTER = {
+  ALL: 'ALL',
+  COMPLETE: 'COMPLETE',
+  INPROGRESS: 'INPROGRESS',
+};
