@@ -30,7 +30,7 @@ const StepTwo = () => {
       error = { ...error, gender: "Gender is required !" };
     }
     //action
-    if (error.address || error.gender || error.gender) {
+    if (error.address || error.gender) {
       dispatch(changeErrorMessage(error));
     } else {
       dispatch(nextStepForm());
