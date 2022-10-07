@@ -3,14 +3,11 @@ import {
   SUBMIT_FORM_PENDING,
   SUBMIT_FORM_REJECTED,
   SUBMIT_FORM_FULFILLED,
-  CLEAR_FORM__MESSAGE,
 } from "../constants/formContant";
 
 const initialState = {
   isLoading: false,
-  isSubmit: false,
-  isSuccess: false,
-  message: "",
+  formSubmitted: {},
   form: {
     firstname: "",
     lastname: "",
@@ -36,33 +33,19 @@ export const formDataReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: true,
-        isSubmit: false,
-        isSuccess: false,
         message: "",
       };
     case SUBMIT_FORM_FULFILLED:
       return {
         ...state,
         isLoading: false,
-        isSubmit: true,
-        isSuccess: true,
-        message: action.payload.message,
+        formSubmitted: action.payload,
       };
     case SUBMIT_FORM_REJECTED:
       return {
         ...state,
         isLoading: false,
-        isSubmit: true,
-        isSuccess: false,
-        message: action.payload,
-      };
-    case CLEAR_FORM__MESSAGE:
-      return {
-        ...state,
-        isLoading: false,
-        isSubmit: false,
-        isSuccess: false,
-        message: "",
+        formSubmitted: {},
       };
     default:
       return state;

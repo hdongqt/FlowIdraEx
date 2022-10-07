@@ -1,33 +1,12 @@
-import { useEffect } from "react";
-import Swal from "sweetalert2";
 import { FormGroup, FormLabel, FormStyle, TextInput, FormMessageError } from "./Form.style";
 import { ButtonGroupStep, FormButton } from "../StepForm/Form.style";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  backStepForm,
-  changeErrorMessage,
-  changeValueForm,
-  clearFormMessage,
-  submitForm,
-} from "../../../redux/actions/formAction";
+import { backStepForm, changeErrorMessage, changeValueForm, submitForm } from "../../../redux/actions/formAction";
 
 const StepLast = () => {
   const dispatch = useDispatch();
   const { errorMessage } = useSelector((state) => state.formValidate);
-  const { form, isLoading, isSubmit, isSuccess, message } = useSelector((state) => state.formData);
-
-  useEffect(() => {
-    if (isSubmit) {
-      Swal.fire({
-        icon: `${isSuccess ? "success" : "error"}`,
-        title: message,
-      }).then((result) => {
-        if (result.isConfirmed) {
-          dispatch(clearFormMessage());
-        }
-      });
-    }
-  }, [isSubmit, isSuccess, message, dispatch]);
+  const { form, isLoading } = useSelector((state) => state.formData);
 
   const onChange = (e) => {
     dispatch(changeValueForm({ [e.target.name]: e.target.value }));
