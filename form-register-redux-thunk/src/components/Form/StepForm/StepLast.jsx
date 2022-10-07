@@ -36,13 +36,14 @@ const StepLast = () => {
 
   const onClickNextStep = () => {
     let error = errorMessage;
-    const phoneFormat = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
-    if (!form.phone || !form.phone.match(phoneFormat)) {
+    // eslint-disable-next-line
+    const phoneFormat = /^[0-9\+]{1,}[0-9\-]{3,15}$/;
+    if (!form.phone || !phoneFormat.test(form.phone)) {
       error = { ...error, phone: "Phone is not valid !" };
     }
     // eslint-disable-next-line
     var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    if (!form.email || !form.email.match(mailformat)) {
+    if (!form.email || !mailformat.test(form.email)) {
       error = { ...error, email: "Email is not valid !" };
     }
     //action
