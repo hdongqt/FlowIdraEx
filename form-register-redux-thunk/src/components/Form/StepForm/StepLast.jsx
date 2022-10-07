@@ -26,7 +26,7 @@ const StepLast = () => {
       error = { ...error, email: "Email is not valid !" };
     }
     //action
-    if (Object.values(error).some((mess) => mess.length > 0)) {
+    if (error.phone || error.email) {
       dispatch(changeErrorMessage(error));
     } else {
       dispatch(submitForm(form));

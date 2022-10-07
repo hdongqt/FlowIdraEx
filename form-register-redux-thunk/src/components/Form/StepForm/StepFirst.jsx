@@ -17,6 +17,7 @@ const StepFirst = () => {
 
   const onChange = (e) => {
     dispatch(changeValueForm({ [e.target.name]: e.target.value }));
+    console.log(e.target.name);
     dispatch(changeErrorMessage({ ...errorMessage, [e.target.name]: "" }));
   };
 
@@ -33,7 +34,7 @@ const StepFirst = () => {
       error = { ...error, age: "Please enter valid age !" };
     }
     //action
-    if (Object.values(error).some((mess) => mess.length > 0)) {
+    if (error.firstname || error.lastname || error.age) {
       dispatch(changeErrorMessage(error));
     } else {
       dispatch(nextStepForm());

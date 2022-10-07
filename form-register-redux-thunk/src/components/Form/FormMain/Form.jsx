@@ -14,7 +14,6 @@ const FormContainer = styled.div`
 
 const Form = () => {
   const { step } = useSelector((state) => state.formValidate);
-  const { formSubmitted } = useSelector((state) => state.formData);
 
   return (
     <FormContainer>

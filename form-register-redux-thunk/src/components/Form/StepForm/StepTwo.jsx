@@ -30,7 +30,7 @@ const StepTwo = () => {
       error = { ...error, gender: "Gender is required !" };
     }
     //action
-    if (Object.values(error).some((mess) => mess.length > 0)) {
+    if (error.address || error.gender || error.gender) {
       dispatch(changeErrorMessage(error));
     } else {
       dispatch(nextStepForm());
