@@ -1,0 +1,87 @@
+import { useEffect } from "react";
+import Swal from "sweetalert2";
+import { FormGroup, FormLabel, FormStyle, TextInput, FormMessageError } from "./Form.style";
+import { ButtonGroupStep, FormButton } from "../StepForm/Form.style";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  backStepForm,
+  changeErrorMessage,
+  changeValueForm,
+  clearFormMessage,
+  submitForm,
+} from "../../../redux/actions/formAction";
+
+const StepLast = () => {
+  const dispatch = useDispatch();
+  const { errorMessage } = useSelector((state) => state.formValidate);
+  const { form, isLoading, isSubmit, isSuccess, message } = useSelector((state) => state.formData);
+
+  useEffect(() => {
+    if (isSubmit) {
+      Swal.fire({
+        icon: `${isSuccess ? "success" : "error"}`,
+        title: message,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          dispatch(clearFormMessage());
+        }
+      });
+    }
+  }, [isSubmit, isSuccess, message, dispatch]);
+
+  const onChange = (e) => {
+    dispatch(changeValueForm({ [e.target.name]: e.target.value }));
+    dispatch(changeErrorMessage({ ...errorMessage, [e.target.name]: "" }));
+  };
+
+  const onClickNextStep = () => {
+    let error = errorMessage;
+    const phoneFormat = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+    if (!form.phone || !form.phone.match(phoneFormat)) {
+      error = { ...error, phone: "Phone is not valid !" };
+    }
+    // eslint-disable-next-line
+    var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (!form.email || !form.email.match(mailformat)) {
+      error = { ...error, email: "Email is not valid !" };
+    }
+    //action
+    if (Object.values(error).some((mess) => mess.length > 0)) {
+      dispatch(changeErrorMessage(error));
+    } else {
+      dispatch(submitForm(form));
+    }
+  };
+
+  return (
+    <>
+      <FormStyle>
+        <FormGroup className="form-group">
+          <FormLabel>Phone:</FormLabel>
+          <TextInput type="tel" name="phone" onChange={(e) => onChange(e)} value={form.phone} />
+          {errorMessage.phone && <FormMessageError>{errorMessage.phone}</FormMessageError>}
+        </FormGroup>
+        <FormGroup className="form-group">
+          <FormLabel>Email:</FormLabel>
+          <TextInput type="email" name="email" onChange={(e) => onChange(e)} value={form.email} />
+          {errorMessage.email && <FormMessageError>{errorMessage.email}</FormMessageError>}
+        </FormGroup>
+        <ButtonGroupStep>
+          <FormButton type="button" onClick={() => dispatch(backStepForm())}>
+            Back
+          </FormButton>
+          <FormButton type="button" onClick={() => onClickNextStep()} isSubmit={true}>
+            {isLoading && (
+              <span className="btn-icon-loading">
+                <i className="las la-spinner"></i>
+              </span>
+            )}
+            Submit
+          </FormButton>
+        </ButtonGroupStep>
+      </FormStyle>
+    </>
+  );
+};
+
+export default StepLast;
