@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import * as ADD from "./AddTodo.style";
 import { useSelector, useDispatch } from "react-redux";
-import { editTodoFilter, addNewTodoFilter, selectEditTodo } from "../Todo/todoSlice";
+import { editTodoFilter, addNewTodoFilter, selectEditTodo } from "../../features/Todo/todoSlice";
 
 const AddTodo = ({ handelEditTodo, clearEditTodo }) => {
   const dispatch = useDispatch();

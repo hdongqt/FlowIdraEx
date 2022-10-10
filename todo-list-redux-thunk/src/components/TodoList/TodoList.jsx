@@ -1,12 +1,13 @@
 import React from "react";
+import Swal from "sweetalert2";
 import * as LIST from "./TodoList.style";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, changeStatusTodo, selectEditTodo } from "../Todo/todoSlice";
-import { TYPE_FILTER } from "./../../utils/typeFilter";
-import Swal from "sweetalert2";
+import { deleteTodo, changeStatusTodo, selectEditTodo } from "../../features/Todo/todoSlice";
+import { TYPE_FILTER } from "../../utils/typeFilter";
+
 const TodoList = () => {
   const filter = useSelector((state) => state.todos.filter);
-  const isLoading = useSelector((state)=>state.todos.loading)
+  const isLoading = useSelector((state) => state.todos.loading);
   const todoLists = useSelector((state) =>
     filter === TYPE_FILTER.ALL
       ? state.todos.todoList
@@ -35,9 +36,14 @@ const TodoList = () => {
   const dispatch = useDispatch();
   return (
     <LIST.TodoListStyle>
-      {isLoading ? <LIST.LoadingIcon>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831" alt="loading"></img>
-      </LIST.LoadingIcon> : todoLists && todoLists.length ?
+      {isLoading ? (
+        <LIST.LoadingIcon>
+          <img
+            src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Loading_2.gif?20170503175831"
+            alt="loading"
+          ></img>
+        </LIST.LoadingIcon>
+      ) : todoLists && todoLists.length ? (
         todoLists.map((todo, index) => {
           return (
             <LIST.TodoItem key={index}>
@@ -57,7 +63,10 @@ const TodoList = () => {
               </LIST.TodoGroupButton>
             </LIST.TodoItem>
           );
-        }): <LIST.TodoNoTask>No task 😀</LIST.TodoNoTask> }
+        })
+      ) : (
+        <LIST.TodoNoTask>No task 😀</LIST.TodoNoTask>
+      )}
     </LIST.TodoListStyle>
   );
 };

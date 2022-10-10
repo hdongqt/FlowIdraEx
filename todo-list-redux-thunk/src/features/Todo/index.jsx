@@ -1,11 +1,11 @@
-import AddTodo from "../AddTodo/AddTodo";
+import AddTodo from "../../components/AddTodo/AddTodo";
 import { TYPE_FILTER } from "../../utils/typeFilter";
-import TodoList from "./../TodoList/TodoList";
+import TodoList from "../../components/TodoList/TodoList";
 import * as TODO from "./Todo.style";
 import { useSelector, useDispatch } from "react-redux";
 import { changeFilter } from "./todoSlice";
 import { useEffect } from "react";
-import { getListTodo } from "./todoSlice";
+import { getListTodo } from "../../features/Todo/todoSlice";
 
 const Todo = () => {
   const filter = useSelector((state) => state.todos.filter);

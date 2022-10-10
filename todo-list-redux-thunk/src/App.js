@@ -1,4 +1,4 @@
-import Todo from './components/Todo/Todo';
+import Todo from "./features/Todo";
 function App() {
   return (
     <div className="App">
