@@ -1,4 +1,4 @@
-import { NEXT_STEP_FORM, BACK_STEP_FORM, CHANGE_ERROR_MESSAGE } from "../constants/formContant";
+import { NEXT_STEP_FORM, BACK_STEP_FORM, CHANGE_ERROR_MESSAGE } from "../constants/actionType";
 
 const initialState = {
   step: 1,

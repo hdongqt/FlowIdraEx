@@ -1,7 +1,7 @@
 import { FormGroup, FormLabel, FormStyle, TextInput, FormMessageError } from "./Form.style";
 import { ButtonGroupStep, FormButton } from "../StepForm/Form.style";
 import { useSelector, useDispatch } from "react-redux";
-import { backStepForm, changeErrorMessage, changeValueForm, submitForm } from "../../../redux/actions/formAction";
+import { backStepForm, changeErrorMessage, changeValueForm, submitForm } from "../../../actions/formAction";
 
 const StepLast = () => {
   const dispatch = useDispatch();

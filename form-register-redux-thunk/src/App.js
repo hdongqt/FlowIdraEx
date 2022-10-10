@@ -1,8 +1,8 @@
-import Form from './components/Form/FormMain/Form';
+import FormRegister from "./features/FormRegister/index";
 function App() {
   return (
     <div className="App">
-      <Form />
+      <FormRegister />
     </div>
   );
 }

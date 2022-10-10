@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import StepFirst from "../StepForm/StepFirst";
-import StepTwo from "../StepForm/StepTwo";
 import { useSelector } from "react-redux";
-import StepLast from "../StepForm/StepLast";
+import styled from "styled-components";
+import StepFirst from "../../components/Form/StepForm/StepFirst";
+import StepTwo from "../../components/Form/StepForm/StepTwo";
+import StepLast from "../../components/Form/StepForm/StepLast";
 
 const FormContainer = styled.div`
   display: flex;
@@ -12,7 +12,7 @@ const FormContainer = styled.div`
   padding-top: 100px;
 `;
 
-const Form = () => {
+const FormRegister = () => {
   const { step } = useSelector((state) => state.formValidate);
 
   return (
@@ -32,4 +32,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default FormRegister;

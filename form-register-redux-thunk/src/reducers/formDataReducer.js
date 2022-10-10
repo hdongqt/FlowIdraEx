@@ -3,7 +3,7 @@ import {
   SUBMIT_FORM_PENDING,
   SUBMIT_FORM_REJECTED,
   SUBMIT_FORM_FULFILLED,
-} from "../constants/formContant";
+} from "../constants/actionType";
 
 const initialState = {
   isLoading: false,

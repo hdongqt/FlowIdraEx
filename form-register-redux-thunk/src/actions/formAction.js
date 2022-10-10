@@ -1,3 +1,7 @@
+import Swal from "sweetalert2";
+import { registerAPI } from "../api/registerAPI";
+import { SUBMIT_FORM_REJECTED } from "./../constants/actionType";
+
 import {
   BACK_STEP_FORM,
   NEXT_STEP_FORM,
@@ -5,10 +9,8 @@ import {
   CHANGE_ERROR_MESSAGE,
   SUBMIT_FORM_PENDING,
   SUBMIT_FORM_FULFILLED,
-} from "../constants/formContant";
-import Swal from "sweetalert2";
-import { registerAPI } from "../../api/registerAPI";
-import { SUBMIT_FORM_REJECTED } from "./../constants/formContant";
+} from "../constants/actionType";
+
 export const nextStepForm = () => {
   return { type: NEXT_STEP_FORM };
 };
@@ -27,6 +29,14 @@ export const changeErrorMessage = (value) => {
 
 export const submitForm = (value) => async (dispatch) => {
   dispatch({ type: SUBMIT_FORM_PENDING });
+  Swal.fire({
+    html: "Please wait...",
+    allowEscapeKey: false,
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    },
+  });
   try {
     const response = await registerAPI(value);
     dispatch({

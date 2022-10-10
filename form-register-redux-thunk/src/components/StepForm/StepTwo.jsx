@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { backStepForm, changeErrorMessage, changeValueForm, nextStepForm } from "../../../redux/actions/formAction";
+import { backStepForm, changeErrorMessage, changeValueForm, nextStepForm } from "../../../actions/formAction";
 import {
   FormGroup,
   FormLabel,
