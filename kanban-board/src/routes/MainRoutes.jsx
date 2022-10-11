@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { BoardActive, BackLog } from "../features/Board";
+import { BoardActive, BackLog } from "../containers/Board/index";
 
 const MainRoutes = () => {
   return (
