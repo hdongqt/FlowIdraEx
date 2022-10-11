@@ -5,6 +5,16 @@ import * as message from "../../../utils";
 import { TYPE_STATUS } from "../../../utils";
 import { changeSearchFilter, deleteTask, changeStatusTask, setEditTask } from "../../../actions/boardAction";
 
+import task from "../../../assets/images/icons/task.png";
+import bug from "../../../assets/images/icons/bug.png";
+import epic from "../../../assets/images/icons/epic.png";
+import story from "../../../assets/images/icons/story.png";
+import lowest from "../../../assets/images/icons/lowest.png";
+import low from "../../../assets/images/icons/low.png";
+import medium from "../../../assets/images/icons/medium.png";
+import high from "../../../assets/images/icons/high.png";
+import highest from "../../../assets/images/icons/highest.png";
+
 import {
   BoardContainer,
   BoardMain,
@@ -17,6 +27,8 @@ import {
   BoardSearch,
   BoardAction,
   BoardAssign,
+  BoardInfoTask,
+  BoardInfoType,
 } from "./BoardActive.style";
 
 const BoardListItem = ({ title, list, taskEdit }) => {
@@ -54,14 +66,32 @@ const BoardListItem = ({ title, list, taskEdit }) => {
             <BoardIcon onClick={() => dispatch(setEditTask(todo))} top={"10px"} right={"35px"} color={"blue"}>
               <i className="las la-edit"></i>
             </BoardIcon>
-            <BoardAssign>
-              Assignee:
-              {todo.assignee && todo.assignee.name ? (
-                <span>{todo.assignee.name}</span>
-              ) : (
-                <span className="unassign">Unassigned</span>
-              )}
-            </BoardAssign>
+            <BoardInfoTask>
+              <BoardInfoType>
+                <div>
+                  {todo.typeIssue === "TASK" && <img src={task} alt={todo.typeIssue}></img>}
+                  {todo.typeIssue === "BUG" && <img src={bug} alt={todo.typeIssue}></img>}
+                  {todo.typeIssue === "EPIC" && <img src={epic} alt={todo.typeIssue}></img>}
+                  {todo.typeIssue === "STORY" && <img src={story} alt={todo.typeIssue}></img>}
+                </div>
+                <div>
+                  {todo.priority === "LOWEST" && <img src={lowest} alt={todo.priority}></img>}
+                  {todo.priority === "LOW" && <img src={low} alt={todo.priority}></img>}
+                  {todo.priority === "MEDIUM" && <img src={medium} alt={todo.priority}></img>}
+                  {todo.priority === "HIGH" && <img src={high} alt={todo.priority}></img>}
+                  {todo.priority === "HIGHEST" && <img src={highest} alt={todo.priority}></img>}
+                </div>
+              </BoardInfoType>
+
+              <BoardAssign>
+                Assignee:
+                {todo.assignee && todo.assignee.name ? (
+                  <span>{todo.assignee.name}</span>
+                ) : (
+                  <span className="unassign">Unassigned</span>
+                )}
+              </BoardAssign>
+            </BoardInfoTask>
           </BoardItem>
         ))}
       </BoardList>

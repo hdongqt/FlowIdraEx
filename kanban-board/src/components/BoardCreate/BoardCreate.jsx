@@ -4,7 +4,6 @@ import { listTypeIssue, listTypePriority, TYPE_STATUS } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { changeIsOpenFormCreate, submitFormCreate } from "../../actions/boardAction";
 import { find } from "lodash";
-
 import {
   FormOverlay,
   BoardForm,
@@ -12,17 +11,27 @@ import {
   FormLabel,
   TextInput,
   TextArea,
-  FormSelect,
   FormAssignToMe,
   FormButton,
   FormMessageError,
-} from "./BoardForm.style";
+} from "./BoardCreate.style";
 import { useEffect } from "react";
+import SelectCustom from "../SelectCustom/SelectCustom";
+
+const getListSelectUsers = () => {
+  const options = listUsers.map((user) => ({
+    label: user.name,
+    value: user.id,
+  }));
+  return [{ label: "Unassigned", value: -1 }, ...options];
+};
 
 const BoardCreate = () => {
   const dispatch = useDispatch();
   const listTask = useSelector((state) => state.boardReducer.listTask);
   const isOpenForm = useSelector((state) => state.boardReducer.isOpenFormCreate);
+
+  const [listUserOptions] = useState(() => getListSelectUsers());
 
   useEffect(() => {
     if (!isOpenForm) {
@@ -69,7 +78,8 @@ const BoardCreate = () => {
   };
 
   const onChangeInput = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+    const value = typeof e.target.value === "string" ? e.target.value.trim() : +e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
     setMessageError({ ...messageError, [e.target.name]: "" });
   };
 
@@ -102,8 +112,7 @@ const BoardCreate = () => {
 
   const handleOnSubmit = () => {
     const { assigneeId, ...params } = formData;
-    const idAssignee = +formData.assigneeId;
-    const assigneeFind = listUsers.find((user) => user.id === idAssignee) || {};
+    const assigneeFind = listUsers.find((user) => user.id === assigneeId) || {};
     let form = {
       ...params,
       id: handleRandomId(),
@@ -150,60 +159,41 @@ const BoardCreate = () => {
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Issue Type</FormLabel>
-          <FormSelect
-            name="typeIssue"
-            value={formData.typeIssue}
-            onChange={(e) => {
-              onChangeInput(e);
-            }}
-          >
-            {listTypeIssue.map((item) => (
-              <option key={item.type} value={item.type}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
+          <div style={{ flex: 1 }}>
+            <SelectCustom
+              name="typeIssue"
+              useIcon={true}
+              list={listTypeIssue}
+              selectValue={formData?.typeIssue}
+              onChange={onChangeInput}
+            />
+          </div>
           {messageError.typeIssue && <FormMessageError>{messageError.typeIssue}</FormMessageError>}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Priority</FormLabel>
-          <FormSelect
+          <SelectCustom
             name="priority"
-            value={formData.priority}
-            onChange={(e) => {
-              onChangeInput(e);
-            }}
-          >
-            {listTypePriority.map((item) => (
-              <option key={item.type} value={item.type}>
-                {item.name}
-              </option>
-            ))}
-          </FormSelect>
+            useIcon={true}
+            list={listTypePriority}
+            selectValue={formData?.priority}
+            onChange={onChangeInput}
+          />
           {messageError.priority && <FormMessageError>{messageError.priority}</FormMessageError>}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Assignee</FormLabel>
-          <FormSelect
+          <SelectCustom
             name="assigneeId"
-            value={formData.assigneeId ? formData.assigneeId : -1}
-            onChange={(e) => {
-              onChangeInput(e);
-            }}
-          >
-            <option value={-1}>Unassigned</option>
-            {listUsers.map((user) => (
-              <option key={user.id} value={user.id}>
-                {user.name}
-              </option>
-            ))}
-          </FormSelect>
+            list={listUserOptions}
+            selectValue={formData?.assigneeId}
+            onChange={onChangeInput}
+          />
           {messageError.assignee && <FormMessageError>{messageError.assignee}</FormMessageError>}
           <FormAssignToMe onClick={() => setFormData({ ...formData, assigneeId: myUser.id })}>
             Assign to me
           </FormAssignToMe>
         </FormGroup>
-
         <FormGroup className="form-group form-group-btn">
           <FormButton
             type="submit"

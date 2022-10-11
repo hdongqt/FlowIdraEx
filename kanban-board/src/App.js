@@ -1,6 +1,7 @@
 import MainRoutes from "./routes/MainRoutes";
 import SideBar from "./components/SideBar/SideBar";
 import styled from "styled-components";
+import BoardInfo from "./components/BoardInfo/BoardInfo";
 
 const BoardContainer = styled.div`
   padding-left: 200px;
@@ -18,6 +19,7 @@ function App() {
       <SideBar />
       <BoardContainer>
         <MainRoutes />
+        <BoardInfo />
       </BoardContainer>
     </div>
   );

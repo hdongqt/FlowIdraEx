@@ -68,13 +68,6 @@ const TextArea = styled.textarea`
   max-width: 100%;
 `;
 
-const FormSelect = styled.select`
-  outline: none;
-  border: 1px solid #ccc;
-  font-size: 16px;
-  padding: 8px 8px;
-`;
-
 const FormAssignToMe = styled.span`
   margin-top: 14px;
   font-size: 16px;
@@ -118,7 +111,6 @@ export {
   FormLabel,
   TextInput,
   TextArea,
-  FormSelect,
   FormAssignToMe,
   FormButton,
   FormMessageError,

@@ -115,12 +115,32 @@ const BoardAction = styled.div`
   padding-bottom: 20px;
 `;
 
+const BoardInfoTask = styled.div`
+  display: flex;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 6px;
+`;
+
+const BoardInfoType = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  img {
+    display: block;
+    width: 20px;
+    height: 20px;
+  }
+`;
+
 const BoardAssign = styled.span`
   display: flex;
   align-items: center;
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
+
   font-size: 14px;
   color: #333;
   transition: 0.2s linear;
@@ -151,4 +171,6 @@ export {
   BoardSearch,
   BoardAction,
   BoardAssign,
+  BoardInfoTask,
+  BoardInfoType,
 };

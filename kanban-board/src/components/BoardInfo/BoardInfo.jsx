@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { find } from "lodash";
-import { listTypeIssue, listTypePriority } from "../../utils/typeTask";
+import { listTypeIssue, listTypePriority } from "../../utils";
 import { listUsers, myUser } from "../../utils/user";
 import { setEditTask, submitFormEdit } from "../../actions/boardAction";
 import {
   BoardInfoModal,
   BoardInfoForm,
-  BoardInfoTo,
   BoardInfoInfoTask,
   BoardInfoClose,
   BoardInfoAssignToMe,
@@ -21,6 +20,15 @@ import {
   FormInfoButton,
   FormMessageError,
 } from "./BoardInfo.style";
+import SelectUseIcon from "../../components/SelectCustom/SelectCustom";
+
+const getListSelectUsers = () => {
+  const options = listUsers.map((user) => ({
+    label: user.name,
+    value: user.id,
+  }));
+  return [{ label: "Unassigned", value: -1 }, ...options];
+};
 
 const BoardInfo = () => {
   const dispatch = useDispatch();
@@ -34,10 +42,12 @@ const BoardInfo = () => {
     typeIssue: "",
     priority: "",
   });
+  const [listUserOptions] = useState(() => getListSelectUsers());
   useEffect(() => setFormData(taskEdit), [taskEdit]);
 
   const onChangeInput = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value.trim() });
+    const value = typeof e.target.value === "string" ? e.target.value.trim() : +e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
     setMessageError({ ...messageError, [e.target.name]: "" });
   };
 
@@ -101,7 +111,7 @@ const BoardInfo = () => {
                     onChange={(e) => onChangeInput(e)}
                     autoFocus={true}
                     onBlur={(e) => setIsEditTitle(false)}
-                  ></BoardInfoTaskTitleInput>
+                  />
                 </>
               ) : (
                 <BoardInfoTaskTitle onClick={() => setIsEditTitle(true)}>{formData.title}</BoardInfoTaskTitle>
@@ -119,30 +129,30 @@ const BoardInfo = () => {
               <FormInfoGroup>
                 <FormInfoItem>
                   <label>Type Issue:</label>
-                  <BoardInfoTo>
-                    <select value={formData.typeIssue} onChange={(e) => onChangeInput(e)} name="typeIssue">
-                      {listTypeIssue.map((item) => (
-                        <option key={item.type} value={item.type}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                  </BoardInfoTo>
+                  <div style={{ flex: 1 }}>
+                    <SelectUseIcon
+                      useIcon={true}
+                      name="typeIssue"
+                      list={listTypeIssue}
+                      selectValue={formData?.typeIssue}
+                      onChange={onChangeInput}
+                    />
+                  </div>
                 </FormInfoItem>
                 {messageError.typeIssue && <FormMessageError>{messageError.typeIssue}</FormMessageError>}
               </FormInfoGroup>
               <FormInfoGroup>
                 <FormInfoItem>
                   <label>Priority:</label>
-                  <BoardInfoTo>
-                    <select value={formData?.priority} onChange={(e) => onChangeInput(e)} name="priority">
-                      {listTypePriority.map((item) => (
-                        <option key={item.type} value={item.type}>
-                          {item.name}
-                        </option>
-                      ))}
-                    </select>
-                  </BoardInfoTo>
+                  <div style={{ flex: 1 }}>
+                    <SelectUseIcon
+                      name="priority"
+                      useIcon={true}
+                      list={listTypePriority}
+                      selectValue={formData?.priority}
+                      onChange={onChangeInput}
+                    />
+                  </div>
                 </FormInfoItem>
                 {messageError.priority && <FormMessageError>{messageError.priority}</FormMessageError>}
               </FormInfoGroup>
@@ -156,19 +166,14 @@ const BoardInfo = () => {
               <FormInfoGroup>
                 <FormInfoItem>
                   <label>Assignee:</label>
-                  <BoardInfoTo>
-                    <select
-                      value={formData && formData.assignee.id ? formData.assignee.id : -1}
-                      onChange={(e) => onChangeAssignee(+e.target.value)}
-                    >
-                      <option value={-1}>Unassigned</option>
-                      {listUsers.map((user) => (
-                        <option key={user.id} value={user.id}>
-                          {user.name}
-                        </option>
-                      ))}
-                    </select>
-                  </BoardInfoTo>
+                  <div style={{ flex: 1 }}>
+                    <SelectUseIcon
+                      name="assignee"
+                      list={listUserOptions}
+                      selectValue={formData?.assignee.id}
+                      onChange={(e) => onChangeAssignee(e.target.value)}
+                    />
+                  </div>
                 </FormInfoItem>
               </FormInfoGroup>
               <FormInfoGroup>

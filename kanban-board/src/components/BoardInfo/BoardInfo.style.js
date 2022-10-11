@@ -30,21 +30,6 @@ const BoardInfoForm = styled.div`
   overflow-y: auto;
 `;
 
-const BoardInfoTo = styled.div`
-  display: flex;
-  align-items: center;
-  span {
-    padding-right: 16px;
-  }
-  select {
-    min-width: 160px;
-    font-size: 14px;
-    padding: 6px 6px;
-    border: 1px solid #ccc;
-    outline: none;
-  }
-`;
-
 const BoardInfoInfoTask = styled.div`
   width: 100%;
   border-bottom: 1px solid #000;
@@ -183,7 +168,6 @@ const FormMessageError = styled.span`
 export {
   BoardInfoModal,
   BoardInfoForm,
-  BoardInfoTo,
   BoardInfoInfoTask,
   BoardInfoClose,
   BoardInfoAssignToMe,
