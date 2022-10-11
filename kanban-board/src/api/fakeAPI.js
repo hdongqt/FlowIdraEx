@@ -34,4 +34,7 @@ const fakeCreateAPI = (request) =>
       }
     }, 1000);
   });
+
+const fakeDeleteAPI = (request) => {};
+
 export { fakeEditAPI, fakeCreateAPI };

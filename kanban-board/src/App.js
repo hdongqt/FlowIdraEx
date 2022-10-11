@@ -1,4 +1,10 @@
-import Board from "./features/Board";
+import MainRoutes from "./routes/MainRoutes";
+import SideBar from "./components/SideBar/SideBar";
+import styled from "styled-components";
+
+const BoardContainer = styled.div`
+  padding-left: 200px;
+`;
 
 function App() {
   return (
@@ -9,7 +15,10 @@ function App() {
         if (active) active.style.display = "none";
       }}
     >
-      <Board />
+      <SideBar />
+      <BoardContainer>
+        <MainRoutes />
+      </BoardContainer>
     </div>
   );
 }

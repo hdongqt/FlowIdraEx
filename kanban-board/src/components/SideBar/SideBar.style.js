@@ -36,7 +36,7 @@ const SideBarMenu = styled.ul`
 
   & li.active > a {
     background-color: #ccc;
-    color: #fff;
+    color: #000;
   }
 
   li a {
@@ -47,7 +47,7 @@ const SideBarMenu = styled.ul`
     border-radius: 4px;
     &:hover {
       background-color: #ccc;
-      color: #fff;
+      color: #000;
     }
   }
 `;

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as message from "../../../../utils/message";
-import BoardCreate from "../../../../components/BoardCreate/BoardCreate";
-import { TYPE_STATUS } from "../../../../utils/typeTask";
-import { changeIsOpenFormCreate, changeStatusTask, deleteTask, setEditTask } from "../../../../actions/boardAction";
+import * as message from "../../../utils";
+import BoardCreate from "../../../components/BoardCreate/BoardCreate";
+import { TYPE_STATUS } from "../../../utils";
+import { changeIsOpenFormCreate, changeStatusTask, deleteTask, setEditTask } from "../../../actions/boardAction";
 import {
   BackLogContainer,
   BoardButton,
@@ -23,7 +23,6 @@ const BackLog = () => {
   const [taskSelectRight, setTaskSelectRight] = useState(null);
 
   const handleOpenForm = () => {
-    dispatch(setEditTask(null));
     dispatch(changeIsOpenFormCreate("OPEN"));
   };
 

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import * as message from "../../../../utils/message";
 import { useDispatch, useSelector } from "react-redux";
-import { TYPE_STATUS } from "../../../../utils/typeTask";
 import { filter } from "lodash";
-import { changeSearchFilter, deleteTask, changeStatusTask, setEditTask } from "../../../../actions/boardAction";
+import * as message from "../../../utils";
+import { TYPE_STATUS } from "../../../utils";
+import { changeSearchFilter, deleteTask, changeStatusTask, setEditTask } from "../../../actions/boardAction";
 
 import {
   BoardContainer,

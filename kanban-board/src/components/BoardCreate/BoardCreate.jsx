@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { listUsers, myUser } from "../../utils/user";
-import { listTypeIssue, listTypePriority, TYPE_STATUS } from "../../utils/typeTask";
+import { listTypeIssue, listTypePriority, TYPE_STATUS } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 import { changeIsOpenFormCreate, submitFormCreate } from "../../actions/boardAction";
 import { find } from "lodash";
