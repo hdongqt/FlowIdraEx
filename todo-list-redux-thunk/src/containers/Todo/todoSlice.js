@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { TYPE_FILTER } from "./../../utils/typeFilter";
+import { TYPE_FILTER } from "../../utils/typeFilter";
 import fetchTodo from "../../api/fetchTodo";
 
 const todoSlice = createSlice({

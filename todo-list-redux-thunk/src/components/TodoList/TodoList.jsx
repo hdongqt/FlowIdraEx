@@ -2,7 +2,7 @@ import React from "react";
 import Swal from "sweetalert2";
 import * as LIST from "./TodoList.style";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteTodo, changeStatusTodo, selectEditTodo } from "../../features/Todo/todoSlice";
+import { deleteTodo, changeStatusTodo, selectEditTodo } from "../../containers/Todo/todoSlice";
 import { TYPE_FILTER } from "../../utils/typeFilter";
 
 const TodoList = () => {

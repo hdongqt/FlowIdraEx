@@ -5,7 +5,7 @@ import * as TODO from "./Todo.style";
 import { useSelector, useDispatch } from "react-redux";
 import { changeFilter } from "./todoSlice";
 import { useEffect } from "react";
-import { getListTodo } from "../../features/Todo/todoSlice";
+import { getListTodo } from "../../containers/Todo/todoSlice";
 
 const Todo = () => {
   const filter = useSelector((state) => state.todos.filter);
