@@ -9,7 +9,7 @@ import {
   FormMessageError,
 } from "./Form.style";
 import { useSelector, useDispatch } from "react-redux";
-import { changeErrorMessage, changeValueForm, nextStepForm } from "../../../actions/formAction";
+import { changeErrorMessage, changeValueForm, nextStepForm } from "../../actions/formAction";
 const StepFirst = () => {
   const dispatch = useDispatch();
   const { errorMessage } = useSelector((state) => state.formValidate);

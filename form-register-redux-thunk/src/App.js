@@ -1,4 +1,4 @@
-import FormRegister from "./features/FormRegister/index";
+import FormRegister from "./containers/FormRegister/index";
 function App() {
   return (
     <div className="App">

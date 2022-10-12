@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import StepFirst from "../../components/Form/StepForm/StepFirst";
-import StepTwo from "../../components/Form/StepForm/StepTwo";
-import StepLast from "../../components/Form/StepForm/StepLast";
+import StepFirst from "../../components/StepForm/StepFirst";
+import StepTwo from "../../components/StepForm/StepTwo";
+import StepLast from "../../components/StepForm/StepLast";
 
 const FormContainer = styled.div`
   display: flex;
