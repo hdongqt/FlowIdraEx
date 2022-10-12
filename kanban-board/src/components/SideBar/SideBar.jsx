@@ -25,7 +25,7 @@ const SideBar = () => {
         {listNav &&
           listNav.map((item, index) => {
             return (
-              <li key={index} className={item.path === pathname && "active"}>
+              <li key={index} className={item.path === pathname ? "active" : undefined}>
                 <Link to={item.path}>{item.name}</Link>
               </li>
             );

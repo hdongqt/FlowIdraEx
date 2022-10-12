@@ -55,7 +55,6 @@ const BackLog = () => {
     message.deleteConfirm().then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteTask(id));
-        message.success("Task has been deleted.");
       }
     });
   };

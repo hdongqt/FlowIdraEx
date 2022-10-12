@@ -35,6 +35,16 @@ const fakeCreateAPI = (request) =>
     }, 1000);
   });
 
-const fakeDeleteAPI = (request) => {};
+const fakeDeleteAPI = (request) => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        message: `Delete successfully !`,
+        data: request,
+        isSuccess: true,
+      });
+    }, 1000);
+  });
+};
 
-export { fakeEditAPI, fakeCreateAPI };
+export { fakeEditAPI, fakeCreateAPI, fakeDeleteAPI };

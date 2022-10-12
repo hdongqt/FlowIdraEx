@@ -7,7 +7,7 @@ const BoardInfoModal = styled.div`
   bottom: 0;
   right: 0;
   z-index: 9;
-  background: rgba(0, 0, 0, 0.3);
+  background: rgb(0 0 0 / 12%);
   visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
   transition: all 0.2s linear;
 `;
@@ -18,7 +18,7 @@ const BoardInfoForm = styled.div`
   transform: translate(120%, -50%);
   transform: ${(props) => (props.isOpen ? "translate(0%, -50%)" : "translate(120%, -50%)")};
   position: fixed;
-  z-index: 110;
+  z-index: 11;
   right: 6px;
   top: 50%;
   bottom: 0;

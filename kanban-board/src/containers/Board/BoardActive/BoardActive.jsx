@@ -42,7 +42,6 @@ const BoardListItem = ({ title, list, taskEdit }) => {
     message.deleteConfirm().then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteTask(id));
-        message.success("Task has been deleted.");
       }
     });
   };
@@ -131,41 +130,43 @@ const BoardActive = () => {
   );
 
   return (
-    <BoardContainer>
-      <AppTitle>Kanban board</AppTitle>
-      <BoardAction>
-        <BoardSearch
-          type="text"
-          placeholder="Type to search..."
-          onChange={(e) => setSearchText(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              dispatch(changeSearchFilter(searchText));
-            }
-          }}
-        />
-        <BoardButton onClick={() => dispatch(changeSearchFilter(searchText))}>Search</BoardButton>
-      </BoardAction>
-      <BoardMain>
-        <BoardGroup onDragOver={(e) => e.preventDefault()} onDrop={(e) => handleDrop(e, TYPE_STATUS.TODO)}>
-          <BoardListItem title={TYPE_STATUS.TODO} list={listTodo} />
-        </BoardGroup>
-        <BoardGroup
-          bgTitleColor={"#F8B445"}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => handleDrop(e, TYPE_STATUS.INPROGRESS)}
-        >
-          <BoardListItem title={TYPE_STATUS.INPROGRESS} list={listInprogress} />
-        </BoardGroup>
-        <BoardGroup
-          bgTitleColor={"#4BC456"}
-          onDragOver={(e) => e.preventDefault()}
-          onDrop={(e) => handleDrop(e, TYPE_STATUS.DONE)}
-        >
-          <BoardListItem title={TYPE_STATUS.DONE} list={listDone} />
-        </BoardGroup>
-      </BoardMain>
-    </BoardContainer>
+    <>
+      <BoardContainer>
+        <AppTitle>Kanban board</AppTitle>
+        <BoardAction>
+          <BoardSearch
+            type="text"
+            placeholder="Type to search..."
+            onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                dispatch(changeSearchFilter(searchText));
+              }
+            }}
+          />
+          <BoardButton onClick={() => dispatch(changeSearchFilter(searchText))}>Search</BoardButton>
+        </BoardAction>
+        <BoardMain>
+          <BoardGroup onDragOver={(e) => e.preventDefault()} onDrop={(e) => handleDrop(e, TYPE_STATUS.TODO)}>
+            <BoardListItem title={TYPE_STATUS.TODO} list={listTodo} />
+          </BoardGroup>
+          <BoardGroup
+            bgTitleColor={"#F8B445"}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => handleDrop(e, TYPE_STATUS.INPROGRESS)}
+          >
+            <BoardListItem title={TYPE_STATUS.INPROGRESS} list={listInprogress} />
+          </BoardGroup>
+          <BoardGroup
+            bgTitleColor={"#4BC456"}
+            onDragOver={(e) => e.preventDefault()}
+            onDrop={(e) => handleDrop(e, TYPE_STATUS.DONE)}
+          >
+            <BoardListItem title={TYPE_STATUS.DONE} list={listDone} />
+          </BoardGroup>
+        </BoardMain>
+      </BoardContainer>
+    </>
   );
 };
 

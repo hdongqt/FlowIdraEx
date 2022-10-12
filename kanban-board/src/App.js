@@ -1,7 +1,8 @@
-import MainRoutes from "./routes/MainRoutes";
+import { MainRoutes } from "./routes";
 import SideBar from "./components/SideBar/SideBar";
 import styled from "styled-components";
 import BoardInfo from "./components/BoardInfo/BoardInfo";
+import Loading from "./components/Loading/Loading";
 
 const BoardContainer = styled.div`
   padding-left: 200px;
@@ -21,6 +22,7 @@ function App() {
         <MainRoutes />
         <BoardInfo />
       </BoardContainer>
+      <Loading />
     </div>
   );
 }

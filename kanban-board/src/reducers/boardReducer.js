@@ -2,7 +2,8 @@ import {
   CHANGE_ACTIVE_TASK,
   CHANGE_SEARCH_FILTER,
   CHANGE_STATUS_TASK,
-  DELETE_TASK,
+  DELETE_TASK_PENDING,
+  DELETE_TASK_FULFILLED,
   SET_EDIT_TASK,
   OPEN_FORM_CREATE,
   SUBMIT_FORM_EDIT_FULFILLED,
@@ -61,9 +62,15 @@ export const boardReducer = (state = initialState, action) => {
         ...state,
         searchFilter: action.payload,
       };
-    case DELETE_TASK:
+    case DELETE_TASK_PENDING:
       return {
         ...state,
+        isLoading: true,
+      };
+    case DELETE_TASK_FULFILLED:
+      return {
+        ...state,
+        isLoading: false,
         listTask: filter(state.listTask, (task) => task.id !== action.payload),
       };
     case CHANGE_STATUS_TASK:
