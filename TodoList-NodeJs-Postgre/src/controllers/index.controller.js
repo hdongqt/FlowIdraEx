@@ -10,7 +10,7 @@ const pool = new Pool({
 
 const getTodos = async (req, res) => {
     try {
-        const response = await pool.query(`SELECT * FROM todos`);
+        const response = await pool.query(`SELECT id,title,"isDone" FROM todos where "isDelete" = false`);
         res.status(200).json(response.rows);
     } catch (error) {
         res.send("Error: " + error);
@@ -20,7 +20,7 @@ const getTodos = async (req, res) => {
 const getTodoById = async (req, res) => {
     try {
         const id = req.params.id;
-        const response = await pool.query('SELECT * FROM todos WHERE id = $1', [id]);
+        const response = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
         res.status(200).json(response.rows);
     } catch (error) {
         res.send("Error: " + error);
