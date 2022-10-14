@@ -30,16 +30,28 @@ const getTodoById = async (req, res) => {
 const createTodo = async (req, res) => {
     try {
         const {title, isDone} = req.body;
-        const response = await pool.query('INSERT INTO todos(title, "isDone") VALUES($1, $2)', [title, isDone]);
-        console.log(response);
-        res.status(201).json({
-            message: 'Todo Add Successfully',
-            data: {
-                todo: {title, isDone}
-            }
-        });
+        let errorMessage = ""
+        if (title.toLowerCase().includes('fuck')) {
+            errorMessage += "Title no more than 25 characters; "
+        }
+        if (title.length > 25) {
+            errorMessage += "Title is length; "
+        }
+        if (errorMessage.length > 0) {
+            res.status(400).json({message: errorMessage})
+        } else {
+            const response = await pool.query('INSERT INTO todos(title, "isDone") VALUES($1, $2)', [title, isDone]);
+            res.status(201).json({
+                message: 'Todo Add Successfully',
+                data: {
+                    todo: {title, isDone}
+                }
+            });
+        }
     } catch (error) {
-        res.send("Error: " + error);
+        res.status(400).json({
+            message: "Error: " + error
+        });
     }
 };
 
@@ -47,7 +59,9 @@ const deleteTodo = async (req, res) => {
     try {
         const id = req.params.id;
         const response = await pool.query('UPDATE todos SET "isDelete" = true  WHERE id= $1', [id]);
-        res.status(200).json(`User deleted successfully`);
+        res.status(200).json({
+            message: `Todo deleted successfully`
+        });
     } catch (error) {
         res.send("Error: " + error);
     }
@@ -57,12 +71,17 @@ const updateTodo = async (req, res) => {
     try {
         const id = req.params.id;
         const {title, isDone} = req.body;
+        if (title.includes('fuck')) {
+            res.status(400).json({message: 'Title is not allow'})
+        }
         const response = await pool.query('UPDATE todos SET title = $1, "isDone"=$2 WHERE id = $3', [title, isDone, id]);
         res.status(200).json({
-            message: 'User updated successfully'
+            message: 'Todo updated successfully'
         });
     } catch (error) {
-        res.send("Error: " + error);
+        res.json({
+            message: "Error: " + error
+        });
     }
 }
 
