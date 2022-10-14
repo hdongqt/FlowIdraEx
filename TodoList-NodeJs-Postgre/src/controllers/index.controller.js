@@ -32,10 +32,10 @@ const createTodo = async (req, res) => {
         const {title, isDone} = req.body;
         let errorMessage = ""
         if (title.toLowerCase().includes('fuck')) {
-            errorMessage += "Title no more than 25 characters; "
+            errorMessage += "Title is not allow "
         }
         if (title.length > 25) {
-            errorMessage += "Title is length; "
+            errorMessage += "Title no more than 25 characters; "
         }
         if (errorMessage.length > 0) {
             res.status(400).json({message: errorMessage})
