@@ -27,8 +27,7 @@ const AddTodo = ({handelEditTodo, clearEditTodo}) => {
         setTitle(event.target.value);
     };
 
-    const handelClickAddEditTodo = (e) => {
-        e.preventDefault();
+    const handelClickAddEditTodo = () => {
         if (title) {
             if (todoEdit) {
                 const todo = {...todoEdit, title: title};
@@ -53,12 +52,17 @@ const AddTodo = ({handelEditTodo, clearEditTodo}) => {
         dispatch(selectEditTodo(null));
     };
 
+    const onEnterInputAddTodo = (e) => {
+        e.preventDefault();
+        handelClickAddEditTodo()
+    }
+
     return (
         <ADD.AddTodoStyle>
             <ADD.AddTodoInput
                 placeholder="Please enter a title for the task..."
                 onChange={(e) => onChangeInput(e)}
-                onKeyDown={(e) => e.key === "Enter" && handelClickAddEditTodo(e)}
+                onKeyDown={(e) => e.key === "Enter" && onEnterInputAddTodo(e)}
                 value={title}
             ></ADD.AddTodoInput>
             {todoEdit && (
