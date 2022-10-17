@@ -116,10 +116,23 @@ const updateTask = async (req, res) => {
         });
     }
 };
+
+const getUsers = async (req, res) => {
+    try {
+        const response = await pool.query(`SELECT id,fullname,email FROM users where "is_delete" = false ORDER BY updated_at ASC`);
+        res.status(200).json(response.rows);
+    } catch (error) {
+        res.json({
+            message: "Error: " + error
+        });
+    }
+}
+
 module.exports = {
     getTasks,
     getTaskById,
     createTask,
     deleteTask,
     updateTask,
+    getUsers
 };
