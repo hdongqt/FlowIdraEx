@@ -1,0 +1,137 @@
+{
+    "tables": {
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "fullname": {
+                    "allowNull": false,
+                    "field": "fullname",
+                    "seqType": "Sequelize.STRING"
+                },
+                "email": {
+                    "allowNull": false,
+                    "field": "email",
+                    "seqType": "Sequelize.STRING"
+                },
+                "is_delete": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "field": "is_delete",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.literal(\"CURRENT_TIMESTAMP\")"
+                    },
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.literal(\"CURRENT_TIMESTAMP\")"
+                    },
+                    "field": "updated_at",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        },
+        "tasks": {
+            "tableName": "tasks",
+            "schema": {
+                "id": {
+                    "allowNull": false,
+                    "primaryKey": true,
+                    "autoIncrement": true,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "title": {
+                    "allowNull": false,
+                    "field": "title",
+                    "seqType": "Sequelize.STRING"
+                },
+                "description": {
+                    "allowNull": false,
+                    "field": "description",
+                    "seqType": "Sequelize.STRING"
+                },
+                "status": {
+                    "allowNull": false,
+                    "field": "status",
+                    "seqType": "Sequelize.STRING"
+                },
+                "issue_type": {
+                    "allowNull": false,
+                    "field": "issue_type",
+                    "seqType": "Sequelize.STRING"
+                },
+                "priority_type": {
+                    "allowNull": false,
+                    "field": "priority_type",
+                    "seqType": "Sequelize.STRING"
+                },
+                "reporter_id": {
+                    "allowNull": false,
+                    "field": "reporter_id",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "assignee_id": {
+                    "allowNull": true,
+                    "field": "assignee_id",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "SET NULL",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER"
+                },
+                "is_delete": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "value": false
+                    },
+                    "field": "is_delete",
+                    "seqType": "Sequelize.BOOLEAN"
+                },
+                "createdAt": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.literal(\"CURRENT_TIMESTAMP\")"
+                    },
+                    "field": "created_at",
+                    "seqType": "Sequelize.DATE"
+                },
+                "updatedAt": {
+                    "allowNull": false,
+                    "defaultValue": {
+                        "internal": true,
+                        "value": "Sequelize.literal(\"CURRENT_TIMESTAMP\")"
+                    },
+                    "field": "updated_at",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "path": "G:\\InternBackend\\FlowIdraEx\\KanbanBoard-NodeJs-Postgre\\migrations\\_current.json",
+    "backupPath": "G:\\InternBackend\\FlowIdraEx\\KanbanBoard-NodeJs-Postgre\\migrations\\_current_bak.json",
+    "exists": false,
+    "revision": 1
+}
