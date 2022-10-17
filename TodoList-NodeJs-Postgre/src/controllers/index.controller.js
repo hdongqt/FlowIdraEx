@@ -13,7 +13,9 @@ const getTodos = async (req, res) => {
         const response = await pool.query(`SELECT id,title,"isDone" FROM todos where "isDelete" = false ORDER BY "updatedAt" ASC`);
         res.status(200).json(response.rows);
     } catch (error) {
-        res.send("Error: " + error);
+        res.json({
+            message: "Error: " + error
+        });
     }
 };
 
@@ -21,9 +23,15 @@ const getTodoById = async (req, res) => {
     try {
         const id = req.params.id;
         const response = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
-        res.status(200).json(response.rows);
+        if (response.rows.length > 0) {
+            res.status(200).json(response.rows);
+        } else {
+            res.status(404).json({message: 'Item requested was not found'});
+        }
     } catch (error) {
-        res.send("Error: " + error);
+        res.json({
+            message: "Error: " + error
+        });
     }
 };
 
@@ -49,7 +57,7 @@ const createTodo = async (req, res) => {
             });
         }
     } catch (error) {
-        res.status(400).json({
+        res.json({
             message: "Error: " + error
         });
     }
@@ -58,12 +66,20 @@ const createTodo = async (req, res) => {
 const deleteTodo = async (req, res) => {
     try {
         const id = req.params.id;
-        const response = await pool.query('UPDATE todos SET "isDelete" = true  WHERE id= $1', [id]);
-        res.status(200).json({
-            message: `Todo deleted successfully`
-        });
+        const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
+        if (selectTodo.rows.length > 0) {
+            const response = await pool.query('UPDATE todos SET "isDelete" = true  WHERE id= $1', [id]);
+            res.status(200).json({
+                message: `Todo deleted successfully`
+            });
+        } else {
+            res.status(404).json({message: 'Item requested was not found'});
+        }
+
     } catch (error) {
-        res.send("Error: " + error);
+        res.json({
+            message: "Error: " + error
+        });
     }
 };
 
@@ -74,10 +90,16 @@ const updateTodo = async (req, res) => {
         if (title.includes('fuck')) {
             res.status(400).json({message: 'Title is not allow'})
         }
-        const response = await pool.query('UPDATE todos SET title = $1, "isDone"=$2 WHERE id = $3', [title, isDone, id]);
-        res.status(200).json({
-            message: 'Todo updated successfully'
-        });
+        const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
+        if (selectTodo.rows.length > 0) {
+            const response = await pool.query('UPDATE todos SET title = $1, "isDone"=$2 WHERE id = $3', [title, isDone, id]);
+            res.status(200).json({
+                message: 'Todo updated successfully'
+            });
+        } else {
+            res.status(404).json({message: 'Item requested was not found'});
+        }
+
     } catch (error) {
         res.json({
             message: "Error: " + error
