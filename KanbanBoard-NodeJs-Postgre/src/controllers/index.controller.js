@@ -40,8 +40,10 @@ const getTaskById = async (req, res, next) => {
         const id = +req.params.id;
         if (typeof id === 'number' && !isNaN(id)) {
             const response = await pool.query(
-                `SELECT id, title, description, status, issue_type, priority_type, reporter_id,
-        assignee_id FROM tasks where is_delete = false and id = $1`,
+                `SELECT t.id, t.title, t.description, t.status, t.issue_type, t.priority_type, t.reporter_id,t.assignee_id , u1.fullname as reporter_fullname, u2.fullname as assignee_fullname
+                FROM tasks as t
+                LEFT JOIN users AS u1 ON u1.id = t.reporter_id LEFT JOIN users AS u2 ON u2.id = t.assignee_id 
+                WHERE t.is_delete = false AND t.id = $1`,
                 [id]
             );
             if (response.rows.length > 0) {
