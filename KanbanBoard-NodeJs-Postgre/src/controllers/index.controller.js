@@ -14,13 +14,19 @@ const getTasks = async (req, res, next) => {
         const {search, status} = req.query;
         let response;
         if (status === "backlog") {
-            const query = `SELECT id, title, description, status, issue_type, priority_type, reporter_id, assignee_id 
-        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' ORDER BY updated_At ASC`;
+            const query = `
+        SELECT tasks.id, tasks.title, tasks.description, tasks.status, tasks.issue_type, tasks.priority_type,
+            tasks.reporter_id, tasks.assignee_id,users.fullname
+        FROM tasks 
+        LEFT JOIN users ON users.id = tasks.assignee_id 
+        WHERE tasks.is_delete = false AND 
+        title iLIKE '%'||$1||'%' ORDER BY tasks.updated_At ASC`;
             response = await pool.query(query, [search]);
         } else {
-            const query = `SELECT id, title, description, status, issue_type, priority_type, reporter_id, assignee_id 
-        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' AND status <> 'BACKLOG'
-        ORDER BY updated_At ASC`;
+            const query = `SELECT tasks.id, tasks.title, tasks.description, tasks.status, tasks.issue_type, tasks.priority_type,
+        tasks.reporter_id, tasks.assignee_id,users.fullname 
+        FROM tasks LEFT JOIN users ON users.id = tasks.assignee_id WHERE tasks.is_delete = false AND 
+        title iLIKE '%'||$1||'%' AND status <> 'BACKLOG' ORDER BY tasks.updated_At ASC`;
             response = await pool.query(query, [search]);
         }
         res.status(200).json(response.rows);
@@ -39,7 +45,7 @@ const getTaskById = async (req, res, next) => {
                 [id]
             );
             if (response.rows.length > 0) {
-                res.status(200).json(response.rows);
+                res.status(200).json(response.rows[0]);
             } else {
                 next(responseError("Item requested was not found", 404));
             }
