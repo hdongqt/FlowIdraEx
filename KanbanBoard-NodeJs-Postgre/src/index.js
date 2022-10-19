@@ -14,6 +14,17 @@ app.use((req, res, next) => {
 //routes
 app.use(require('./routes'));
 
+//middlewares handle error response
+app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.json({
+        error: {
+            status: err.status || 500,
+            message: err.message,
+        },
+    });
+});
+
 app.listen(3300, () => {
     console.log('listening on port 3300');
 });
