@@ -15,12 +15,12 @@ const getTasks = async (req, res, next) => {
         let response;
         if (status === "backlog") {
             const query = `SELECT id, title, description, status, issue_type, priority_type, reporter_id, assignee_id 
-        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' AND status = 'BACKLOG'
-        ORDER BY updated_At ASC`;
+        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' ORDER BY updated_At ASC`;
             response = await pool.query(query, [search]);
         } else {
             const query = `SELECT id, title, description, status, issue_type, priority_type, reporter_id, assignee_id 
-        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' ORDER BY updated_At ASC`;
+        FROM tasks WHERE is_delete = false AND title iLIKE '%'||$1||'%' AND status <> 'BACKLOG'
+        ORDER BY updated_At ASC`;
             response = await pool.query(query, [search]);
         }
         res.status(200).json(response.rows);
