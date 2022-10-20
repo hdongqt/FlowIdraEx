@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { TYPE_FILTER } from "../../utils/typeFilter";
-import { createTodoAPI, deleteTodoAPI, fetchTodoAPI, updateTodoAPI } from "../../api/fakeAPI";
+import { createTodoAPI, deleteTodoAPI, fetchTodoAPI, updateTodoAPI } from "../../api/todoAPI";
 import * as message from "../../utils/message";
 
 const todoSlice = createSlice({
