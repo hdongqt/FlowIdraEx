@@ -74,10 +74,10 @@ const deleteTodo = async (req, res, next) => {
                     message: `Todo deleted successfully`,
                 });
             } else {
-                next(responseError("Item requested was not found", 404));
+               return next(responseError("Item requested was not found", 404));
             }
         } else {
-            next(responseError("Invalid input id syntax", 400));
+           return next(responseError("Invalid input id syntax", 400));
         }
     } catch (error) {
         next(new Error(error));
@@ -90,7 +90,7 @@ const updateTodo = async (req, res, next) => {
         if (typeof id === 'number' && !isNaN(id)) {
             const {title, isDone} = req.body;
             if (title.includes("fuck")) {
-                next(responseError("Title is not allow", 400));
+               return next(responseError("Title is not allow", 400));
             }
             const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
             if (selectTodo.rows.length > 0) {
@@ -99,10 +99,10 @@ const updateTodo = async (req, res, next) => {
                     message: "Todo updated successfully",
                 });
             } else {
-                next(responseError("Item requested was not found", 404));
+               return next(responseError("Item requested was not found", 404));
             }
         } else {
-            next(responseError("Invalid input id syntax", 400));
+           return next(responseError("Invalid input id syntax", 400));
         }
     } catch (error) {
         next(new Error(error));
