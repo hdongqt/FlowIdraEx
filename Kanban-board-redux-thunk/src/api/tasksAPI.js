@@ -34,7 +34,7 @@ const deleteTaskAPI = (taskId) => {
 const changeStatusTaskAPI = (taskId, status) => {
   return fetch(host + "/api/kanbanboard/changestatus/" + taskId, {
     method: "PUT",
-    body: JSON.stringify({ status: status }),
+    body: JSON.stringify({ task_status: status }),
     headers: {
       "Content-Type": "application/json; charset=utf-8",
     },
@@ -51,46 +51,7 @@ const createTaskAPI = (task) => {
   });
 };
 
-const fakeEditAPI = (request) =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (request.title.length > 0 && request.title.length < 100) {
-        resolve({
-          message: `Edit ${request.title} Successfully !`,
-          data: request,
-          isSuccess: true,
-        });
-      } else {
-        reject({
-          message: `Edit failure
-          Title cannot be longer than 100 characters!`,
-          isSuccess: false,
-        });
-      }
-    }, 1000);
-  });
-
-const fakeCreateAPI = (request) =>
-  new Promise((resolve, reject) => {
-    setTimeout(() => {
-      if (true) {
-        resolve({
-          message: `Create ${request.title} Successfully !`,
-          data: request,
-          isSuccess: true,
-        });
-      } else {
-        reject({
-          message: "Create failure !",
-          isSuccess: false,
-        });
-      }
-    }, 1000);
-  });
-
 export {
-  fakeEditAPI,
-  fakeCreateAPI,
   fetchTasks,
   getTaskById,
   deleteTaskAPI,

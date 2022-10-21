@@ -45,7 +45,7 @@ const BackLog = () => {
 
   const handelActiveTask = (e, status) => {
     e.stopPropagation();
-    if (taskSelectRight.status === TYPE_STATUS.BACKLOG) {
+    if (taskSelectRight.task_status === TYPE_STATUS.BACKLOG) {
       dispatch(changeStatusTask(taskSelectRight.id, TYPE_STATUS.TODO, "backlog"));
     } else {
       dispatch(changeStatusTask(taskSelectRight.id, TYPE_STATUS.BACKLOG, "backlog"));
@@ -70,7 +70,7 @@ const BackLog = () => {
             listTask.map((task) => (
               <BackLogItem
                 key={task.id}
-                isActive={task.status !== TYPE_STATUS.BACKLOG}
+                isActive={task.task_status !== TYPE_STATUS.BACKLOG}
                 onContextMenu={(e) => handleClickItem(e, task)}
                 onClick={(e) => handleClickItem(e, task)}
               >
@@ -93,7 +93,7 @@ const BackLog = () => {
       {taskSelectRight && (
         <BackLogItemSendto className="backlog-sento" locationOffset={locationOffset}>
           <button onClick={(e) => handelActiveTask(e)}>
-            {taskSelectRight.status !== TYPE_STATUS.BACKLOG ? "Unactive" : "Active"}
+            {taskSelectRight.task_status !== TYPE_STATUS.BACKLOG ? "Unactive" : "Active"}
           </button>
           <button onClick={() => handleDeleteTask(taskSelectRight.id)}>Delete</button>
         </BackLogItemSendto>

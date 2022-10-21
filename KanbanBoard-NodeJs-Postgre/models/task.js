@@ -3,26 +3,55 @@ const {
     Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class users extends Model {
+    class task extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            this.belongsTo(models.users,{
+                foreignKey: "assignee_id",
+                onDelete: "cascade",
+                allowNull: true,
+            })
         }
     }
-    users.init({
-        fullname: {
+
+    task.init({
+        title: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        email: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        is_delete: {
+        task_status: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        issue_type: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        priority_type: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        reporter_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
+        assignee_id: {
+            type: DataTypes.INTEGER,
+            onUpdate: "CASCADE",
+            onDelete: "SET NULL",
+            references: { model: "users", key: "id" },
+            field: "assignee_id",
+            allowNull: true,
+        },
+        status: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
             defaultValue: false
@@ -36,11 +65,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.DATE,
             allowNull: false,
             defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
-        },
+        }
     }, {
         sequelize,
-        modelName: 'users',
+        modelName: 'tasks',
         underscored: true,
     });
-    return users;
+
+    return task;
 };

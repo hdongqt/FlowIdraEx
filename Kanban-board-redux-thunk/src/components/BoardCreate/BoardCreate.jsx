@@ -112,7 +112,7 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
     let form = {
       ...formData,
       id: handleRandomId(),
-      status: TYPE_STATUS.BACKLOG,
+      task_status: TYPE_STATUS.BACKLOG,
       reporter_id: myUser.id,
     };
     dispatch(submitFormCreate(form));

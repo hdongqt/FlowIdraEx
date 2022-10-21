@@ -7,14 +7,17 @@ module.exports = {
             {
                 fullname: 'Unasigned',
                 email: 'Unasigned',
+                status: false
             },
             {
                 fullname: 'Dong',
                 email: 'dong@gmail.com',
+                status: false
             },
             {
                 fullname: 'Thuan',
                 email: 'thuan@gmail.com',
+                status: false
             }
         ]);
     },

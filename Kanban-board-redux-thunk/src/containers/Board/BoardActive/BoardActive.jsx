@@ -109,14 +109,14 @@ const BoardActive = () => {
 
   const handleDrop = (e, status) => {
     const todo = JSON.parse(e.dataTransfer.getData("todo"));
-    if (todo.status !== status) {
+    if (todo.task_status !== status) {
       dispatch(changeStatusTask(todo.id, status, "active"));
     }
   };
 
-  const listTodo = filter(listTask, (item) => item.status === TYPE_STATUS.TODO);
-  const listInprogress = filter(listTask, (item) => item.status === TYPE_STATUS.INPROGRESS);
-  const listDone = filter(listTask, (item) => item.status === TYPE_STATUS.DONE);
+  const listTodo = filter(listTask, (item) => item.task_status === TYPE_STATUS.TODO);
+  const listInprogress = filter(listTask, (item) => item.task_status === TYPE_STATUS.INPROGRESS);
+  const listDone = filter(listTask, (item) => item.task_status === TYPE_STATUS.DONE);
 
   return (
     <>

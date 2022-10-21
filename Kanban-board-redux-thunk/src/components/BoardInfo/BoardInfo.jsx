@@ -49,8 +49,8 @@ const BoardInfo = () => {
 
   useEffect(() => {
     if (taskEdit) {
-      const { title, description, status, issue_type, priority_type, assignee_id } = taskEdit;
-      setFormData({ title, description, status, issue_type, priority_type, assignee_id });
+      const { title, description, task_status, issue_type, priority_type, assignee_id } = taskEdit;
+      setFormData({ title, description, task_status, issue_type, priority_type, assignee_id });
     } else {
       setFormData(taskEdit);
     }
@@ -130,7 +130,7 @@ const BoardInfo = () => {
               <FormInfoGroup>
                 <FormInfoItem>
                   <label>Status:</label>
-                  <span>{formData?.status}</span>
+                  <span>{formData?.task_status}</span>
                 </FormInfoItem>
               </FormInfoGroup>
               <FormInfoGroup>
