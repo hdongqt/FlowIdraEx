@@ -1,12 +1,6 @@
-const {Pool} = require("pg");
-
-const pool = new Pool({
-    user: "postgres",
-    host: "localhost",
-    database: "todolist",
-    password: "123456",
-    port: 5432,
-});
+const pool = require("../config");
+const {idValid, validate} = require("../middlewares/validator");
+const {responseError} = require("../shared/handleError");
 
 const getTodos = async (req, res, next) => {
     try {
@@ -21,16 +15,12 @@ const getTodos = async (req, res, next) => {
 
 const getTodoById = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const response = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
-            if (response.rows.length > 0) {
-                res.status(200).json(response.rows);
-            } else {
-                next(responseError("Item requested was not found", 404));
-            }
+        const id = req.params.id;
+        const response = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
+        if (response.rows.length > 0) {
+            res.status(200).json(response.rows);
         } else {
-            next(responseError("Invalid input id syntax", 400));
+            next(responseError("Item requested was not found", 404));
         }
     } catch (error) {
         next(new Error(error));
@@ -40,24 +30,13 @@ const getTodoById = async (req, res, next) => {
 const createTodo = async (req, res, next) => {
     try {
         const {title, isDone} = req.body;
-        let errorMessage = "";
-        if (title.toLowerCase().includes("fuck")) {
-            errorMessage += "Title is not allow ";
-        }
-        if (title.length > 25) {
-            errorMessage += "Title no more than 25 characters; ";
-        }
-        if (errorMessage.length > 0) {
-            next(responseError(errorMessage, 400));
-        } else {
-            const response = await pool.query('INSERT INTO todos(title, "isDone") VALUES($1, $2)', [title, isDone]);
-            res.status(201).json({
-                message: "Todo Add Successfully",
-                data: {
-                    todo: {title, isDone},
-                },
-            });
-        }
+        const response = await pool.query('INSERT INTO todos(title, "isDone") VALUES($1, $2)', [title, isDone]);
+        res.status(201).json({
+            message: "Todo Add Successfully",
+            data: {
+                todo: {title, isDone},
+            },
+        });
     } catch (error) {
         next(new Error(error));
     }
@@ -65,19 +44,15 @@ const createTodo = async (req, res, next) => {
 
 const deleteTodo = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
-            if (selectTodo.rows.length > 0) {
-                const response = await pool.query('UPDATE todos SET "isDelete" = true  WHERE id= $1', [id]);
-                res.status(200).json({
-                    message: `Todo deleted successfully`,
-                });
-            } else {
-               return next(responseError("Item requested was not found", 404));
-            }
+        const id = req.params.id;
+        const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
+        if (selectTodo.rows.length === 0) {
+            return next(responseError("Item requested was not found", 404));
         } else {
-           return next(responseError("Invalid input id syntax", 400));
+            const response = await pool.query('UPDATE todos SET "isDelete" = true  WHERE id= $1', [id]);
+            res.status(200).json({
+                message: `Todo deleted successfully`,
+            });
         }
     } catch (error) {
         next(new Error(error));
@@ -86,33 +61,20 @@ const deleteTodo = async (req, res, next) => {
 
 const updateTodo = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const {title, isDone} = req.body;
-            if (title.includes("fuck")) {
-               return next(responseError("Title is not allow", 400));
-            }
-            const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
-            if (selectTodo.rows.length > 0) {
-                const response = await pool.query('UPDATE todos SET title = $1, "isDone"=$2 WHERE id = $3', [title, isDone, id]);
-                res.status(200).json({
-                    message: "Todo updated successfully",
-                });
-            } else {
-               return next(responseError("Item requested was not found", 404));
-            }
+        const id = req.params.id;
+        const {title, isDone} = req.body;
+        const selectTodo = await pool.query('SELECT * FROM todos WHERE id = $1 and "isDelete" = false', [id]);
+        if (selectTodo.rows.length === 0) {
+            return next(responseError("Item requested was not found", 404));
         } else {
-           return next(responseError("Invalid input id syntax", 400));
+            const response = await pool.query('UPDATE todos SET title = $1, "isDone"=$2 WHERE id = $3', [title, isDone, id]);
+            res.status(200).json({
+                message: "Todo updated successfully",
+            });
         }
     } catch (error) {
         next(new Error(error));
     }
-};
-
-const responseError = (message, code) => {
-    const error = new Error(message);
-    error.status = code;
-    return error;
 };
 
 module.exports = {

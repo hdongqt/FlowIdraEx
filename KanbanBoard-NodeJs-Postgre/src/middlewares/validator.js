@@ -3,10 +3,8 @@ const {responseError} = require("../shared/handleError");
 const {TASK_STATUS, ISSUE_TYPE, PRIORITY_TYPE} = require("../shared/constant");
 
 const taskMainValid = [
-    check("title").trim().not().isEmpty().withMessage("Title is missing")
-        .isLength({min: 5, max: 50}).withMessage('Title must be 5 to 50 characters long'),
-    check("description").trim().not().isEmpty().withMessage('Description is missing')
-        .isLength({min: 5, max: 150}).withMessage('Description must be 5 to 150 characters long'),
+    check("title").trim().isLength({min: 5, max: 50}).withMessage('Title must be 5 to 50 characters long'),
+    check("description").trim().isLength({min: 5, max: 150}).withMessage('Description must be 5 to 150 characters long'),
     check("assignee_id").isInt().withMessage('Assignee not valid'),
     check("issue_type").isIn(ISSUE_TYPE).withMessage('Type issue must be TASK | BUG | STORY | EPIC'),
     check("priority_type").isIn(PRIORITY_TYPE).withMessage('Type issue must be LOWEST | LOW | MEDIUM | HIGH |HIGHEST'),
