@@ -37,6 +37,24 @@ db.Sequelize = Sequelize;
 
 db.user = require("./user")(sequelize, Sequelize);
 db.task = require("./task")(sequelize, Sequelize);
+db.role = require("./role")(sequelize, Sequelize);
 
+db.task.belongsTo(db.user,{
+    foreignKey: "assignee_id",
+    as: "assignee",
+    allowNull: false,
+})
+db.task.belongsTo(db.user,{
+    foreignKey: "reporter_id",
+    as: "reporter",
+    allowNull: false,
+})
+db.role.hasMany(db.user,{
+    allowNull: false,
+    foreignKey: "role_id",
+    onDelete: 'cascade',
+    onUpdate: 'cascade',
+    as: "role_user",
+})
 
 module.exports = db;

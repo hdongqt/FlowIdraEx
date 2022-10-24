@@ -10,11 +10,6 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.belongsTo(models.users,{
-                foreignKey: "assignee_id",
-                onDelete: "cascade",
-                allowNull: true,
-            })
         }
     }
 
@@ -42,14 +37,6 @@ module.exports = (sequelize, DataTypes) => {
         reporter_id: {
             type: DataTypes.INTEGER,
             allowNull: false
-        },
-        assignee_id: {
-            type: DataTypes.INTEGER,
-            onUpdate: "CASCADE",
-            onDelete: "SET NULL",
-            references: { model: "users", key: "id" },
-            field: "assignee_id",
-            allowNull: true,
         },
         status: {
             type: DataTypes.BOOLEAN,

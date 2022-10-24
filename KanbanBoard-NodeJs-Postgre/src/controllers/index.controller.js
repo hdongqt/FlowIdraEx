@@ -1,4 +1,6 @@
 const pool = require("../config");
+const {responseError} = require("../shared/handleError");
+const {idValid, validate} = require("../middlewares/validator");
 
 const getTasks = async (req, res, next) => {
     try {
@@ -29,25 +31,21 @@ const getTasks = async (req, res, next) => {
 
 const getTaskById = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const response = await pool.query(
-                `SELECT t.id, t.title, t.description, t.task_status, t.issue_type, t.priority_type, t.reporter_id,t.assignee_id , 
+        const id = req.params.id;
+        console.log(id)
+        const response = await pool.query(
+            `SELECT t.id, t.title, t.description, t.task_status, t.issue_type, t.priority_type, t.reporter_id,t.assignee_id , 
                 u1.fullname as reporter_fullname, u2.fullname as assignee_fullname
                 FROM tasks as t
                 LEFT JOIN users AS u1 ON u1.id = t.reporter_id LEFT JOIN users AS u2 ON u2.id = t.assignee_id 
                 WHERE t.status = false AND t.id = $1`,
-                [id]
-            );
-            if (response.rows.length > 0) {
-                res.status(200).json(response.rows[0]);
-            } else {
-                return next(responseError("Item requested was not found", 404));
-            }
+            [id]
+        );
+        if (response.rows.length > 0) {
+            res.status(200).json(response.rows[0]);
         } else {
-            return next(responseError("Invalid input id syntax", 400));
+            return next(responseError("Item requested was not found", 404));
         }
-
     } catch (error) {
         next(responseError(error));
     }
@@ -56,9 +54,6 @@ const getTaskById = async (req, res, next) => {
 const createTask = async (req, res, next) => {
     try {
         const {title, description, task_status, issue_type, priority_type, reporter_id, assignee_id} = req.body;
-        if (task_status !== 'BACKLOG') {
-            return next(responseError("Type status must be 'BACKLOG'", 400));
-        }
         const query = `INSERT INTO tasks(title, description, task_status, issue_type, priority_type, reporter_id,
         assignee_id) VALUES ($1,$2,$3,$4,$5,$6,$7)`;
         await pool.query(query, [title, description, task_status, issue_type, priority_type, reporter_id, assignee_id,]);
@@ -72,19 +67,15 @@ const createTask = async (req, res, next) => {
 
 const deleteTask = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const selectTask = await pool.query('SELECT * FROM tasks WHERE id = $1 and status= false', [id]);
-            if (selectTask.rows.length > 0) {
-                const response = await pool.query('UPDATE tasks SET status = true  WHERE id= $1', [id]);
-                res.status(200).json({
-                    message: `Task deleted successfully`,
-                });
-            } else {
-                return next(responseError("Item requested was not found", 404));
-            }
+        const id = req.params.id;
+        const selectTask = await pool.query('SELECT * FROM tasks WHERE id = $1 and status= false', [id]);
+        if (selectTask.rows.length === 0) {
+            return next(responseError("Item requested was not found", 404));
         } else {
-            return next(responseError("Invalid input id syntax", 400));
+            const response = await pool.query('UPDATE tasks SET status = true  WHERE id= $1', [id]);
+            res.status(200).json({
+                message: `Task deleted successfully`,
+            });
         }
     } catch (error) {
         next(responseError(error));
@@ -93,24 +84,20 @@ const deleteTask = async (req, res, next) => {
 
 const updateTask = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const {title, description, task_status, issue_type, priority_type, assignee_id} = req.body;
-            const selectTask = await pool.query('SELECT id FROM tasks WHERE id = $1 and status = false', [id]);
-            if (selectTask.rows.length > 0) {
-                const response = await pool.query(
-                    `UPDATE tasks SET title=$1, description=$2, task_status=$3, issue_type=$4, priority_type=$5,
-                    assignee_id=$6 WHERE id = $7`,
-                    [title, description, task_status, issue_type, priority_type, assignee_id, id]
-                );
-                res.status(200).json({
-                    message: "Task updated successfully",
-                });
-            } else {
-                return next(responseError("Item requested was not found", 404));
-            }
+        const id = req.params.id;
+        const {title, description, task_status, issue_type, priority_type, assignee_id} = req.body;
+        const selectTask = await pool.query('SELECT id FROM tasks WHERE id = $1 and status = false', [id]);
+        if (selectTask.rows.length === 0) {
+            return next(responseError("Item requested was not found", 404));
         } else {
-            return next(responseError("Invalid input id syntax", 400));
+            const response = await pool.query(
+                `UPDATE tasks SET title=$1, description=$2, task_status=$3, issue_type=$4, priority_type=$5,
+                    assignee_id=$6 WHERE id = $7`,
+                [title, description, task_status, issue_type, priority_type, assignee_id, id]
+            );
+            res.status(200).json({
+                message: "Task updated successfully",
+            });
         }
     } catch (error) {
         next(responseError(error));
@@ -119,27 +106,19 @@ const updateTask = async (req, res, next) => {
 
 const changeStatusTask = async (req, res, next) => {
     try {
-        const id = +req.params.id;
-        if (typeof id === 'number' && !isNaN(id)) {
-            const {task_status} = req.body;
-            if (!['TODO', 'INPROGRESS', 'BACKLOG', 'DONE'].includes(task_status)) {
-                return next(responseError("Status task is not valid", 400));
-            } else {
-                const selectTask = await pool.query('SELECT * FROM tasks WHERE id = $1 and status = false', [id]);
-                if (selectTask.rows.length > 0) {
-                    const response = await pool.query(
-                        `UPDATE tasks SET task_status=$1 WHERE id = $2`,
-                        [task_status, id]
-                    );
-                    res.status(200).json({
-                        message: "Change status successfully",
-                    });
-                } else {
-                    return next(responseError("Item requested was not found", 404));
-                }
-            }
+        const id = req.params.id;
+        const {task_status} = req.body;
+        const selectTask = await pool.query('SELECT * FROM tasks WHERE id = $1 and status = false', [id]);
+        if (selectTask.rows.length === 0) {
+            return next(responseError("Item requested was not found", 404));
         } else {
-            return next(responseError("Invalid input id syntax", 400));
+            const response = await pool.query(
+                `UPDATE tasks SET task_status=$1 WHERE id = $2`,
+                [task_status, id]
+            );
+            res.status(200).json({
+                message: "Change status successfully",
+            });
         }
     } catch (error) {
         next(responseError(error));
@@ -155,11 +134,6 @@ const getUsers = async (req, res, next) => {
     } catch (error) {
         next(responseError(error));
     }
-};
-const responseError = (message, code) => {
-    const error = new Error(message);
-    error.status = code;
-    return error;
 };
 
 module.exports = {
