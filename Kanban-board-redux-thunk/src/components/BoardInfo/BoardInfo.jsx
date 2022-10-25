@@ -109,7 +109,7 @@ const BoardInfo = () => {
         {formData && (
           <form action="">
             <BoardInfoInfoTask>
-              {isEditTitle ? (
+              {isEditTitle || !formData?.title ? (
                 <>
                   <BoardInfoTaskTitleInput
                     type="text"
