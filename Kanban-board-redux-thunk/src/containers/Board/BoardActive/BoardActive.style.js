@@ -8,7 +8,7 @@ const BoardContainer = styled.div`
 const BoardMain = styled.div`
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 10px;
   min-height: 100vh;
 `;
@@ -17,7 +17,7 @@ const BoardGroup = styled.div`
   background-color: #f4f5f7;
   position: relative;
   z-index: 1;
-  padding: 0px 0px 10px 0px;
+  padding: 0 0 10px 0;
 
   & > h2 {
     color: #fff;
@@ -52,14 +52,17 @@ const BoardItem = styled.div`
     border-color: #ff05d7;
   }
 
-  & > h3 > span {
-    max-width: 80%;
-    font-size: 16px;
-    line-height: 18px;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+  & > h3 {
+    width: 80%;
+
+    & > span {
+      font-size: 16px;
+      line-height: 18px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
   }
 
   &.selected {

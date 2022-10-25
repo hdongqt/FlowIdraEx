@@ -79,7 +79,7 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
   };
 
   const onChangeInput = (e) => {
-    const value = typeof e.target.value === "string" ? e.target.value.trim() : +e.target.value;
+    const value = typeof e.target.value === "string" ? e.target.value : +e.target.value;
     setFormData({ ...formData, [e.target.name]: value });
     setMessageError({ ...messageError, [e.target.name]: "" });
   };
