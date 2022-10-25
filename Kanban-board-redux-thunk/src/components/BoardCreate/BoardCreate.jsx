@@ -92,7 +92,7 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
     if (
       !formData.title ||
       formData.title.length < 5 ||
-      formData.title.length < 50
+      formData.title.length > 50
     ) {
       error = {
         ...error,
