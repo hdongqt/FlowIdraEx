@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 const BoardContainer = styled.div`
   flex: 1;
   padding: 30px 100px;
@@ -17,6 +18,7 @@ const BoardGroup = styled.div`
   position: relative;
   z-index: 1;
   padding: 0px 0px 10px 0px;
+
   & > h2 {
     color: #fff;
     padding: 10px 4px;
@@ -45,19 +47,21 @@ const BoardItem = styled.div`
   box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   min-height: 120px;
   transition: 0.2s linear;
+
   &:hover {
     border-color: #ff05d7;
   }
-  & > h3 {
+
+  & > h3 > span {
     max-width: 80%;
     font-size: 16px;
     line-height: 18px;
-    overflow: hidden;
-    text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    overflow: hidden;
   }
+
   &.selected {
     background-color: #ccc;
   }
@@ -73,6 +77,7 @@ const BoardIcon = styled.span`
   padding: 4px;
   cursor: pointer;
   transition: all 0.2s linear;
+
   &:hover {
     opacity: 0.6;
   }
@@ -92,6 +97,7 @@ const BoardButton = styled.button`
   transition: all 0.2s linear;
   border-radius: 4px;
   cursor: pointer;
+
   &:hover {
     background-color: #6aa2ec;
   }
@@ -130,6 +136,7 @@ const BoardInfoType = styled.div`
   display: flex;
   align-items: center;
   gap: 4px;
+
   img {
     display: block;
     width: 20px;
@@ -144,33 +151,37 @@ const BoardAssign = styled.span`
   font-size: 14px;
   color: #333;
   transition: 0.2s linear;
+
   &:hover {
     color: #000;
   }
+
   i {
     padding-left: 6px;
     font-size: 20px;
   }
+
   span {
     color: #0035ff;
     padding-left: 4px;
   }
+
   .unassign {
     color: #ff4444;
   }
 `;
 export {
-  BoardContainer,
-  BoardMain,
-  BoardGroup,
-  BoardList,
-  BoardItem,
-  AppTitle,
-  BoardButton,
-  BoardIcon,
-  BoardSearch,
-  BoardAction,
-  BoardAssign,
-  BoardInfoTask,
-  BoardInfoType,
+    BoardContainer,
+    BoardMain,
+    BoardGroup,
+    BoardList,
+    BoardItem,
+    AppTitle,
+    BoardButton,
+    BoardIcon,
+    BoardSearch,
+    BoardAction,
+    BoardAssign,
+    BoardInfoTask,
+    BoardInfoType,
 };
