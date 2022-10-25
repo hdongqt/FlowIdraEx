@@ -9,7 +9,9 @@ const todoValid = [
                 throw new Error('Title is not allowed');
             }
             return true;
-        })
+        }),
+    check("is_done").exists({checkFalsy: true})
+        .not().isBoolean().withMessage('Status todo is not allowed')
 ]
 
 const idValid = [
