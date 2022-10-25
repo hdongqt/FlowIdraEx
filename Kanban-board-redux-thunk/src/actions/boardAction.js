@@ -135,7 +135,7 @@ export const submitFormEdit = (id, task, type) => async (dispatch, getState) => 
   }
 };
 
-export const submitFormCreate = (value) => async (dispatch) => {
+export const submitFormCreate = (value, setIsOpenFormCreate) => async (dispatch) => {
   dispatch({ type: CALL_API_PENDING });
   try {
     const response = await createTaskAPI(value);
@@ -150,6 +150,7 @@ export const submitFormCreate = (value) => async (dispatch) => {
       });
       message.success(data.message);
       dispatch(getTasks("", "backlog"));
+      setIsOpenFormCreate(false);
     }
   } catch (error) {
     dispatch({ type: CREATE_TASK_REJECTED });

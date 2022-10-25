@@ -59,7 +59,6 @@ export const boardReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        taskEditSelected: null,
       };
     case GET_LIST_TASKS_FULFILLED:
       return {

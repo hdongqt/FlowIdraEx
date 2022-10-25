@@ -115,8 +115,7 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
       task_status: TYPE_STATUS.BACKLOG,
       reporter_id: myUser.id,
     };
-    dispatch(submitFormCreate(form));
-    setIsOpenFormCreate(false);
+    dispatch(submitFormCreate(form, setIsOpenFormCreate));
   };
 
   return (

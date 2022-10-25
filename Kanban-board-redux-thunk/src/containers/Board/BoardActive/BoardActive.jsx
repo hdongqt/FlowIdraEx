@@ -58,7 +58,9 @@ const BoardListItem = ({ title, list, taskEdit }) => {
             onDragStart={(e) => onDragStart(e, todo)}
             className={`${todo.id === taskEdit?.id ? "selected" : ""}`}
           >
-            <h3><span>{todo.title}</span></h3>
+            <h3>
+              <span>{todo.title}</span>
+            </h3>
             <BoardIcon onClick={() => handleDeleteTask(todo.id)} top={"10px"} right={"10px"}>
               <i className="las la-trash-alt"></i>
             </BoardIcon>

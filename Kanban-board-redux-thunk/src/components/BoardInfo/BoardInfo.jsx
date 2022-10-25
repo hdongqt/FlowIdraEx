@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listTypeIssue, listTypePriority } from "../../utils";
-import { getTasks, submitFormEdit } from "../../actions/boardAction";
+import { submitFormEdit } from "../../actions/boardAction";
 import { useLocation } from "react-router-dom";
 import {
   BoardInfoModal,
