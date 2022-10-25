@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import { reducer } from "./../../containers/Todo/todoSlice";
 
 const ModalLoading = styled.div`
   position: fixed;

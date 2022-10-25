@@ -10,8 +10,8 @@ const todoValid = [
             }
             return true;
         }),
-    check("is_done").exists({checkFalsy: true})
-        .not().isBoolean().withMessage('Status todo is not allowed')
+    check("is_done")
+        .isBoolean().withMessage('Status todo is not valid')
 ]
 
 const idValid = [

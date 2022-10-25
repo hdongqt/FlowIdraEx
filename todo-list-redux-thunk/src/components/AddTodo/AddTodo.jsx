@@ -35,7 +35,7 @@ const AddTodo = ({handelEditTodo, clearEditTodo}) => {
                 dispatch(selectEditTodo(null));
                 setTitle("");
             } else {
-                dispatch(addNewTodoFilter({id: handelRandomId(), title: title, isDone: false}));
+                dispatch(addNewTodoFilter({id: handelRandomId(), title: title, is_done: false}));
                 setTitle("");
             }
         } else {

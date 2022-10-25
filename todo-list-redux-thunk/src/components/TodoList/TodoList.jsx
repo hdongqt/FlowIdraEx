@@ -17,8 +17,8 @@ const TodoList = () => {
     filter === TYPE_FILTER.ALL
       ? state.todos.todoList
       : filter === TYPE_FILTER.COMPLETE
-      ? state.todos.todoList.filter((task) => task.isDone)
-      : state.todos.todoList.filter((task) => !task.isDone)
+      ? state.todos.todoList.filter((task) => task.is_done)
+      : state.todos.todoList.filter((task) => !task.is_done)
   );
   const handleDeleteTodo = (id) => {
     Swal.fire({
@@ -37,7 +37,7 @@ const TodoList = () => {
   };
 
   const handleChangeStatus = (status, todo) => {
-    const newTodo = { ...todo, isDone: status };
+    const newTodo = { ...todo, is_done: status };
     dispatch(editTodoFilter(newTodo));
   };
 
@@ -56,7 +56,7 @@ const TodoList = () => {
             <LIST.TodoItem key={index}>
               <LIST.TodoCheckInput
                 type="checkbox"
-                checked={todo.isDone}
+                checked={todo.is_done}
                 onChange={(e) => handleChangeStatus(e.target.checked, todo)}
               ></LIST.TodoCheckInput>
               <LIST.TodoText donTask={todo.done}>{todo.title}</LIST.TodoText>
