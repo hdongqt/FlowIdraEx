@@ -9,7 +9,6 @@ import {
   createTaskAPI,
 } from "../api/tasksAPI";
 import {
-  CHANGE_SEARCH_FILTER,
   CALL_API_PENDING,
   GET_LIST_TASKS_FULFILLED,
   SET_EDIT_TASK_FULFILLED,
@@ -26,17 +25,13 @@ import {
   DELETE_TASK_FULFILLED,
 } from "../constants/actionType";
 
-export const changeSearchFilter = (value) => {
-  return { type: CHANGE_SEARCH_FILTER, payload: value };
-};
-
 export const getTasks = (search, status) => async (dispatch) => {
   dispatch({ type: CALL_API_PENDING });
   try {
     const response = await fetchTasks(search, status);
     const data = await response.json();
     if (response.status !== 200) {
-      message.error(data.error.message);
+      await message.error(data.error.message);
       dispatch({ type: GET_LIST_TASKS_REJECTED });
     } else {
       dispatch({
@@ -46,7 +41,7 @@ export const getTasks = (search, status) => async (dispatch) => {
     }
   } catch (error) {
     dispatch({ type: GET_LIST_TASKS_REJECTED });
-    message.error(error.message);
+    await message.error(error.message);
   }
 };
 
@@ -55,7 +50,7 @@ export const getUsers = () => async (dispatch) => {
     const response = await fetchUsers();
     const data = await response.json();
     if (response.status !== 200) {
-      message.error(data.error.message);
+      await message.error(data.error.message);
     } else {
       dispatch({
         type: GET_LIST_USERS_FULFILLED,
@@ -63,32 +58,33 @@ export const getUsers = () => async (dispatch) => {
       });
     }
   } catch (error) {
-    message.error(error.message);
+    await message.error(error.message);
   }
 };
 
-export const changeStatusTask = (id, status, type) => async (dispatch, getState) => {
-  dispatch({ type: CALL_API_PENDING });
-  try {
-    const response = await changeStatusTaskAPI(id, status);
-    const data = await response.json();
-    if (response.status !== 200) {
-      message.error(data.error.message);
-      dispatch({ type: CHANGE_STATUS_TASK_REJECTED });
-    } else {
-      dispatch({ type: CHANGE_STATUS_TASK_FULFILLED });
-      if (type === "backlog") {
-        dispatch(getTasks("", "backlog"));
+export const changeStatusTask =
+  (id, status, type) => async (dispatch, getState) => {
+    dispatch({ type: CALL_API_PENDING });
+    try {
+      const response = await changeStatusTaskAPI(id, status);
+      const data = await response.json();
+      if (response.status !== 200) {
+        await message.error(data.error.message);
+        dispatch({ type: CHANGE_STATUS_TASK_REJECTED });
       } else {
-        const { searchFilter } = getState().boardReducer;
-        dispatch(getTasks(searchFilter, "active"));
+        dispatch({ type: CHANGE_STATUS_TASK_FULFILLED });
+        if (type === "backlog") {
+          dispatch(getTasks("", "backlog"));
+        } else {
+          const { searchFilter } = getState().boardReducer;
+          dispatch(getTasks(searchFilter, "active"));
+        }
       }
+    } catch (error) {
+      dispatch({ type: CHANGE_STATUS_TASK_REJECTED });
+      await message.error(error.message);
     }
-  } catch (error) {
-    dispatch({ type: CHANGE_STATUS_TASK_REJECTED });
-    message.error(error.message);
-  }
-};
+  };
 
 export const setEditTask = (taskId) => async (dispatch) => {
   dispatch({ type: CALL_API_PENDING });
@@ -97,7 +93,7 @@ export const setEditTask = (taskId) => async (dispatch) => {
     const response = await getTaskById(taskId);
     const data = await response.json();
     if (response.status !== 200) {
-      message.error(data.error.message);
+      await message.error(data.error.message);
       dispatch({ type: SET_EDIT_TASK_REJECTED });
     } else {
       dispatch({
@@ -106,57 +102,59 @@ export const setEditTask = (taskId) => async (dispatch) => {
       });
     }
   } catch (error) {
-    message.error(error.message);
+    await message.error(error.message);
     dispatch({ type: SET_EDIT_TASK_REJECTED });
   }
 };
 
-export const submitFormEdit = (id, task, type) => async (dispatch, getState) => {
-  dispatch({ type: CALL_API_PENDING });
-  try {
-    const response = await updateTaskAPI(id, task);
-    const data = await response.json();
-    if (response.status !== 200) {
-      message.error(data.error.message);
-      dispatch({ type: EDIT_TASK_REJECTED });
-    } else {
-      message.success(data.message);
-      dispatch({ type: EDIT_TASK_FULFILLED });
-      if (type === "backlog") {
-        dispatch(getTasks("", "backlog"));
+export const submitFormEdit =
+  (id, task, type) => async (dispatch, getState) => {
+    dispatch({ type: CALL_API_PENDING });
+    try {
+      const response = await updateTaskAPI(id, task);
+      const data = await response.json();
+      if (response.status !== 200) {
+        await message.error(data.error.message);
+        dispatch({ type: EDIT_TASK_REJECTED });
       } else {
-        const { searchFilter } = getState().boardReducer;
-        dispatch(getTasks(searchFilter, "active"));
+        await message.success(data.message);
+        dispatch({ type: EDIT_TASK_FULFILLED });
+        if (type === "backlog") {
+          dispatch(getTasks("", "backlog"));
+        } else {
+          const { searchFilter } = getState().boardReducer;
+          dispatch(getTasks(searchFilter, "active"));
+        }
       }
+    } catch (error) {
+      await message.error(error.message);
+      dispatch({ type: EDIT_TASK_REJECTED });
     }
-  } catch (error) {
-    message.error(error.message);
-    dispatch({ type: EDIT_TASK_REJECTED });
-  }
-};
+  };
 
-export const submitFormCreate = (value, setIsOpenFormCreate) => async (dispatch) => {
-  dispatch({ type: CALL_API_PENDING });
-  try {
-    const response = await createTaskAPI(value);
-    const data = await response.json();
-    if (response.status !== 201) {
-      message.error(data.error.message);
+export const submitFormCreate =
+  (value, setIsOpenFormCreate) => async (dispatch) => {
+    dispatch({ type: CALL_API_PENDING });
+    try {
+      const response = await createTaskAPI(value);
+      const data = await response.json();
+      if (response.status !== 201) {
+        await message.error(data.error.message);
+        dispatch({ type: CREATE_TASK_REJECTED });
+      } else {
+        dispatch({
+          type: CREATE_TASK_FULFILLED,
+          payload: response.data,
+        });
+        await message.success(data.message);
+        dispatch(getTasks("", "backlog"));
+        setIsOpenFormCreate(false);
+      }
+    } catch (error) {
       dispatch({ type: CREATE_TASK_REJECTED });
-    } else {
-      dispatch({
-        type: CREATE_TASK_FULFILLED,
-        payload: response.data,
-      });
-      message.success(data.message);
-      dispatch(getTasks("", "backlog"));
-      setIsOpenFormCreate(false);
+      await message.error(error.message);
     }
-  } catch (error) {
-    dispatch({ type: CREATE_TASK_REJECTED });
-    message.error(error.message);
-  }
-};
+  };
 
 export const deleteTask = (value, type) => async (dispatch, getState) => {
   dispatch({ type: CALL_API_PENDING });
@@ -164,10 +162,10 @@ export const deleteTask = (value, type) => async (dispatch, getState) => {
     const response = await deleteTaskAPI(value);
     const data = await response.json();
     if (response.status !== 200) {
-      message.error(data.error.message);
+      await message.error(data.error.message);
       dispatch({ type: DELETE_TASK_REJECTED });
     } else {
-      message.success(data.message);
+      await message.success(data.message);
       dispatch({ type: DELETE_TASK_FULFILLED, payload: response.data });
       if (type === "backlog") {
         dispatch(getTasks("", "backlog"));
@@ -177,7 +175,7 @@ export const deleteTask = (value, type) => async (dispatch, getState) => {
       }
     }
   } catch (error) {
-    message.error(error.message);
+    await message.error(error.message);
     dispatch({ type: DELETE_TASK_REJECTED });
   }
 };

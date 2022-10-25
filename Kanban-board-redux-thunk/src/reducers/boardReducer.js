@@ -1,5 +1,4 @@
 import {
-  CHANGE_SEARCH_FILTER,
   SET_EDIT_TASK_FULFILLED,
   CALL_API_PENDING,
   GET_LIST_TASKS_FULFILLED,
@@ -27,11 +26,6 @@ const initialState = {
 
 export const boardReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_SEARCH_FILTER:
-      return {
-        ...state,
-        searchFilter: action.payload,
-      };
     case CALL_API_PENDING:
       return {
         ...state,

@@ -49,8 +49,22 @@ const BoardInfo = () => {
 
   useEffect(() => {
     if (taskEdit) {
-      const { title, description, task_status, issue_type, priority_type, assignee_id } = taskEdit;
-      setFormData({ title, description, task_status, issue_type, priority_type, assignee_id });
+      const {
+        title,
+        description,
+        task_status,
+        issue_type,
+        priority_type,
+        assignee_id,
+      } = taskEdit;
+      setFormData({
+        title,
+        description,
+        task_status,
+        issue_type,
+        priority_type,
+        assignee_id,
+      });
     } else {
       setFormData(taskEdit);
     }
@@ -63,7 +77,8 @@ const BoardInfo = () => {
   }, [listUsers]);
 
   const onChangeInput = (e) => {
-    const value = typeof e.target.value === "string" ? e.target.value : +e.target.value;
+    const value =
+      typeof e.target.value === "string" ? e.target.value : +e.target.value;
     setFormData({ ...formData, [e.target.name]: value });
     setMessageError({ ...messageError, [e.target.name]: "" });
   };
@@ -77,13 +92,26 @@ const BoardInfo = () => {
       type: SET_EDIT_TASK_FULFILLED,
       payload: null,
     });
-    setMessageError({ title: "", description: "", assignee: "", typeIssue: "", priority: "" });
+    setMessageError({
+      title: "",
+      description: "",
+      assignee: "",
+      typeIssue: "",
+      priority: "",
+    });
   };
 
   const onSubmitFormInfo = () => {
     let error = messageError;
-    if (!formData.title || formData.title.length > 100) {
-      error = { ...error, title: "Title is required and less than 100 characters!" };
+    if (
+      !formData.title ||
+      formData.title.length < 5 ||
+      formData.title.length > 50
+    ) {
+      error = {
+        ...error,
+        title: "Title must be 5 to 50 characters long",
+      };
     }
     if (!formData.description) {
       error = { ...error, description: "Description is required !" };
@@ -98,13 +126,22 @@ const BoardInfo = () => {
     if (Object.values(error).find((task) => task.length > 0)) {
       setMessageError(error);
     } else {
-      dispatch(submitFormEdit(taskEdit.id, formData, pathname === "/backlog" ? "backlog" : "active"));
+      dispatch(
+        submitFormEdit(
+          taskEdit.id,
+          formData,
+          pathname === "/backlog" ? "backlog" : "active"
+        )
+      );
     }
   };
 
   return (
     <>
-      <BoardInfoModal isOpen={formData} onClick={() => handleCloseForm()}></BoardInfoModal>
+      <BoardInfoModal
+        isOpen={formData}
+        onClick={() => handleCloseForm()}
+      ></BoardInfoModal>
       <BoardInfoForm isOpen={formData}>
         {formData && (
           <form action="">
@@ -121,9 +158,13 @@ const BoardInfo = () => {
                   />
                 </>
               ) : (
-                <BoardInfoTaskTitle onClick={() => setIsEditTitle(true)}>{formData?.title}</BoardInfoTaskTitle>
+                <BoardInfoTaskTitle onClick={() => setIsEditTitle(true)}>
+                  {formData?.title}
+                </BoardInfoTaskTitle>
               )}
-              {messageError.title && <FormMessageError>{messageError.title}</FormMessageError>}
+              {messageError.title && (
+                <FormMessageError>{messageError.title}</FormMessageError>
+              )}
             </BoardInfoInfoTask>
             <FormInfoMain>
               <h4>Details</h4>
@@ -146,7 +187,9 @@ const BoardInfo = () => {
                     />
                   </div>
                 </FormInfoItem>
-                {messageError.typeIssue && <FormMessageError>{messageError.typeIssue}</FormMessageError>}
+                {messageError.typeIssue && (
+                  <FormMessageError>{messageError.typeIssue}</FormMessageError>
+                )}
               </FormInfoGroup>
               <FormInfoGroup>
                 <FormInfoItem>
@@ -161,7 +204,9 @@ const BoardInfo = () => {
                     />
                   </div>
                 </FormInfoItem>
-                {messageError.priority && <FormMessageError>{messageError.priority}</FormMessageError>}
+                {messageError.priority && (
+                  <FormMessageError>{messageError.priority}</FormMessageError>
+                )}
               </FormInfoGroup>
               <h4>People</h4>
               <FormInfoGroup>
@@ -186,12 +231,17 @@ const BoardInfo = () => {
               <FormInfoGroup>
                 <div>
                   {taskEdit && myUser && myUser.id !== formData.assignee_id && (
-                    <BoardInfoAssignToMe type="button" onClick={() => onClickAssignToMe()}>
+                    <BoardInfoAssignToMe
+                      type="button"
+                      onClick={() => onClickAssignToMe()}
+                    >
                       Assign to me
                     </BoardInfoAssignToMe>
                   )}
                 </div>
-                {messageError.assignee && <FormMessageError>{messageError.assignee}</FormMessageError>}
+                {messageError.assignee && (
+                  <FormMessageError>{messageError.assignee}</FormMessageError>
+                )}
               </FormInfoGroup>
               <FormInfoGroup>
                 <h4>Description</h4>
@@ -201,10 +251,18 @@ const BoardInfo = () => {
                   onChange={(e) => onChangeInput(e)}
                   value={formData?.description}
                 ></FormInfoTextArea>
-                {messageError.description && <FormMessageError>{messageError.description}</FormMessageError>}
+                {messageError.description && (
+                  <FormMessageError>
+                    {messageError.description}
+                  </FormMessageError>
+                )}
               </FormInfoGroup>
               <FormInfoGroupButton>
-                <FormInfoButton type="button" onClick={() => onSubmitFormInfo()} isSubmit={true}>
+                <FormInfoButton
+                  type="button"
+                  onClick={() => onSubmitFormInfo()}
+                  isSubmit={true}
+                >
                   Save
                 </FormInfoButton>
                 <FormInfoButton type="button" onClick={() => handleCloseForm()}>

@@ -79,7 +79,8 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
   };
 
   const onChangeInput = (e) => {
-    const value = typeof e.target.value === "string" ? e.target.value : +e.target.value;
+    const value =
+      typeof e.target.value === "string" ? e.target.value : +e.target.value;
     setFormData({ ...formData, [e.target.name]: value });
     setMessageError({ ...messageError, [e.target.name]: "" });
   };
@@ -88,8 +89,15 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
     e.preventDefault();
     //validate
     let error = messageError;
-    if (!formData.title || formData.title.length > 100) {
-      error = { ...error, title: "Title is required and less than 100 characters!" };
+    if (
+      !formData.title ||
+      formData.title.length < 5 ||
+      formData.title.length < 50
+    ) {
+      error = {
+        ...error,
+        title: "Title must be 5 to 50 characters long",
+      };
     }
     if (!formData.description) {
       error = { ...error, description: "Description is required !" };
@@ -133,7 +141,9 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
               onChangeInput(e);
             }}
           />
-          {messageError.title && <FormMessageError>{messageError.title}</FormMessageError>}
+          {messageError.title && (
+            <FormMessageError>{messageError.title}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Description</FormLabel>
@@ -146,7 +156,9 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
               onChangeInput(e);
             }}
           />
-          {messageError.description && <FormMessageError>{messageError.description}</FormMessageError>}
+          {messageError.description && (
+            <FormMessageError>{messageError.description}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Issue Type</FormLabel>
@@ -159,7 +171,9 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
               onChange={onChangeInput}
             />
           </div>
-          {messageError.issue_type && <FormMessageError>{messageError.issue_type}</FormMessageError>}
+          {messageError.issue_type && (
+            <FormMessageError>{messageError.issue_type}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Priority</FormLabel>
@@ -170,7 +184,9 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
             selectValue={formData?.priority_type}
             onChange={onChangeInput}
           />
-          {messageError.priority_type && <FormMessageError>{messageError.priority_type}</FormMessageError>}
+          {messageError.priority_type && (
+            <FormMessageError>{messageError.priority_type}</FormMessageError>
+          )}
         </FormGroup>
         <FormGroup className="form-group">
           <FormLabel>Assignee</FormLabel>
@@ -180,8 +196,12 @@ const BoardCreate = ({ setIsOpenFormCreate }) => {
             selectValue={formData?.assignee_id}
             onChange={onChangeInput}
           />
-          {messageError.assignee_id && <FormMessageError>{messageError.assignee_id}</FormMessageError>}
-          <FormAssignToMe onClick={() => setFormData({ ...formData, assignee_id: myUser.id })}>
+          {messageError.assignee_id && (
+            <FormMessageError>{messageError.assignee_id}</FormMessageError>
+          )}
+          <FormAssignToMe
+            onClick={() => setFormData({ ...formData, assignee_id: myUser.id })}
+          >
             Assign to me
           </FormAssignToMe>
         </FormGroup>
