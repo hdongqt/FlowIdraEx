@@ -1,6 +1,5 @@
 const pool = require("../config");
 const { responseError } = require("../shared/handleError");
-const { idValid, validate } = require("../middlewares/validator");
 
 const getTasks = async (req, res, next) => {
   try {
@@ -52,10 +51,26 @@ const getTaskById = async (req, res, next) => {
 
 const createTask = async (req, res, next) => {
   try {
-    const { title, description, task_status, issue_type, priority_type, reporter_id, assignee_id } = req.body;
+    const {
+      title,
+      description,
+      task_status,
+      issue_type,
+      priority_type,
+      reporter_id,
+      assignee_id,
+    } = req.body;
     const query = `INSERT INTO tasks(title, description, task_status, issue_type, priority_type, reporter_id,
         assignee_id) VALUES ($1,$2,$3,$4,$5,$6,$7)`;
-    await pool.query(query, [title, description, task_status, issue_type, priority_type, reporter_id, assignee_id]);
+    await pool.query(query, [
+      title,
+      description,
+      task_status,
+      issue_type,
+      priority_type,
+      reporter_id,
+      assignee_id,
+    ]);
     res.status(201).json({
       message: "Task Add Successfully",
     });
@@ -67,11 +82,17 @@ const createTask = async (req, res, next) => {
 const deleteTask = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const selectTask = await pool.query("SELECT * FROM tasks WHERE id = $1 and status= false", [id]);
+    const selectTask = await pool.query(
+      "SELECT * FROM tasks WHERE id = $1 and status= false",
+      [id]
+    );
     if (selectTask.rows.length === 0) {
       return next(responseError("Item requested was not found", 404));
     } else {
-      const response = await pool.query("UPDATE tasks SET status = true  WHERE id= $1", [id]);
+      const response = await pool.query(
+        "UPDATE tasks SET status = true  WHERE id= $1",
+        [id]
+      );
       res.status(200).json({
         message: `Task deleted successfully`,
       });
@@ -84,15 +105,33 @@ const deleteTask = async (req, res, next) => {
 const updateTask = async (req, res, next) => {
   try {
     const id = req.params.id;
-    const { title, description, task_status, issue_type, priority_type, assignee_id } = req.body;
-    const selectTask = await pool.query("SELECT id FROM tasks WHERE id = $1 and status = false", [id]);
+    const {
+      title,
+      description,
+      task_status,
+      issue_type,
+      priority_type,
+      assignee_id,
+    } = req.body;
+    const selectTask = await pool.query(
+      "SELECT id FROM tasks WHERE id = $1 and status = false",
+      [id]
+    );
     if (selectTask.rows.length === 0) {
       return next(responseError("Item requested was not found", 404));
     } else {
       const response = await pool.query(
         `UPDATE tasks SET title=$1, description=$2, task_status=$3, issue_type=$4, priority_type=$5,
                     assignee_id=$6 WHERE id = $7`,
-        [title, description, task_status, issue_type, priority_type, assignee_id, id]
+        [
+          title,
+          description,
+          task_status,
+          issue_type,
+          priority_type,
+          assignee_id,
+          id,
+        ]
       );
       res.status(200).json({
         message: "Task updated successfully",
@@ -107,11 +146,17 @@ const changeStatusTask = async (req, res, next) => {
   try {
     const id = req.params.id;
     const { task_status } = req.body;
-    const selectTask = await pool.query("SELECT * FROM tasks WHERE id = $1 and status = false", [id]);
+    const selectTask = await pool.query(
+      "SELECT * FROM tasks WHERE id = $1 and status = false",
+      [id]
+    );
     if (selectTask.rows.length === 0) {
       return next(responseError("Item requested was not found", 404));
     } else {
-      const response = await pool.query(`UPDATE tasks SET task_status=$1 WHERE id = $2`, [task_status, id]);
+      const response = await pool.query(
+        `UPDATE tasks SET task_status=$1 WHERE id = $2`,
+        [task_status, id]
+      );
       res.status(200).json({
         message: "Change status successfully",
       });
